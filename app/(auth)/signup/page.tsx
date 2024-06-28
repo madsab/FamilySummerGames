@@ -17,10 +17,10 @@ const SignupPage: React.FC = () => {
 
   return (
     <div className="container mx-auto max-w-md">
-      <h2 className="text-2xl font-bold mb-4">Registrer deg</h2>
-      <form onSubmit={handleSubmit} className="space-y-4 text-black">
+      <h2 className="text-4xl font-bold mb-4">Registrer deg</h2>
+      <form onSubmit={handleSubmit} className="space-y-8 text-black">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium ">
+          <label htmlFor="name" className="block text-lg font-medium ">
             Ditt fornavn:
           </label>
           <input
@@ -29,15 +29,16 @@ const SignupPage: React.FC = () => {
             name="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+            className="mt-1 size-12 p-4 block w-full border border-gray-300 rounded-md"
             required
           />
         </div>
         <div>
-          <label htmlFor="familyName" className="block text-sm font-medium">
+          <label htmlFor="familyName" className="block text-lg font-medium">
             Hvilken famile tilhører du?:
           </label>
           <Select
+            className="mb-12 size-12 w-full"
             title="Familie"
             items={["Saudland", "Bårnes", "Skråning"]}
             onChange={(value) => setFamilyName(value)}
