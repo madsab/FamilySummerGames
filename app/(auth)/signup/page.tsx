@@ -1,24 +1,45 @@
 "use client";
 import React, { useState } from "react";
 import Select from "../components/Select";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../firebase.config";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 const SignupPage: React.FC = () => {
-  const [name, setName] = useState("");
-  const [familyName, setFamilyName] = useState("");
-  const handleSubmit = (e: React.FormEvent) => {
+  const [error, setError] = useState("");
+  const [data, setData] = useState({
+    email: "",
+    name: "",
+    familyName: "",
+    money: 100000,
+  });
+  const router = useRouter();
+
+  const registerUser = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission logic here
-    createUserWithEmailAndPassword(auth, name + "@fsg.com", "password");
-    console.log("Name:", name);
-    console.log("Family Name:", familyName);
+    const response = await fetch("/api/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ data }),
+    });
+    const userInfo = await response.json();
+    console.log(userInfo);
+    if (response.status != 201) {
+      setError("Brukeren finnes allerede, prøv igjen");
+      return;
+    }
+    signIn("credentials", {
+      email: data.email,
+      password: "password",
+      callbackUrl: "/",
+    });
   };
 
   return (
     <div className="container mx-auto max-w-md">
       <h2 className="text-4xl font-bold mb-4">Registrer deg</h2>
-      <form onSubmit={handleSubmit} className="space-y-8 text-black">
+      <form onSubmit={registerUser} className="space-y-8 text-black">
         <div>
           <label htmlFor="name" className="block text-lg font-medium ">
             Ditt fornavn:
@@ -27,8 +48,15 @@ const SignupPage: React.FC = () => {
             type="text"
             id="name"
             name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={data.name}
+            onChange={(e) =>
+              setData({
+                email: e.target.value + "@fsg.com",
+                name: e.target.value,
+                familyName: data.familyName,
+                money: data.money,
+              })
+            }
             className="mt-1 size-12 p-4 block w-full border border-gray-300 rounded-md"
             required
           />
@@ -41,9 +69,10 @@ const SignupPage: React.FC = () => {
             className="mb-12 size-12 w-full"
             title="Familie"
             items={["Saudland", "Bårnes", "Skråning"]}
-            onChange={(value) => setFamilyName(value)}
+            onChange={(value) => setData({ email: data.email, name: data.name, familyName: value, money: data.money })}
           />
         </div>
+        {error && <p className="text-red-500 text-sm w-[200px] text-center ">{error}</p>}
         <button
           type="submit"
           className="w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700"
