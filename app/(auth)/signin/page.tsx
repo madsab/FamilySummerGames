@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
+import Link from "next/link";
 
 const LoginPage: React.FC = () => {
   const [name, setName] = useState("");
@@ -48,6 +49,11 @@ const LoginPage: React.FC = () => {
         >
           Logg In
         </button>
+        <div className="w-full text-center">
+          <Link href="/signup" className="text-red-600 ">
+            Ingen bruker?
+          </Link>
+        </div>
       </div>
     </div>
   );
