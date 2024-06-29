@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import Select from "../components/Select";
+import Select from "../../components/Select";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 
@@ -12,7 +12,6 @@ const SignupPage: React.FC = () => {
     familyName: "",
     money: 100000,
   });
-  const router = useRouter();
 
   const registerUser = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -69,6 +68,7 @@ const SignupPage: React.FC = () => {
             className="mb-12 size-12 w-full"
             title="Familie"
             items={["Saudland", "Bårnes", "Skråning"]}
+            placeholder="Velg en familie"
             onChange={(value) => setData({ email: data.email, name: data.name, familyName: value, money: data.money })}
           />
         </div>
