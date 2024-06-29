@@ -7,7 +7,15 @@ import cn from "classnames";
 interface SelectProps {
   className?: string;
   title: string;
-  items: string[];
+  items:
+    | [
+        {
+          title: string;
+          price: number;
+        }
+      ]
+    | string[];
+  placeholder?: string;
   onChange: (value: string) => void;
 }
 
@@ -20,7 +28,7 @@ const Select: FC<SelectProps> = (props) => (
       )}
       aria-label="Family"
     >
-      <SelectR.Value placeholder="Velg en familie" />
+      <SelectR.Value placeholder={props.placeholder} />
       <SelectR.Icon className="text-black">
         <Icon icon={"tabler:chevron-down"} />
       </SelectR.Icon>
@@ -35,11 +43,19 @@ const Select: FC<SelectProps> = (props) => (
             <SelectR.Label className="px-[25px] text-lg leading-[25px] text-red-300 underline">
               {props.title}
             </SelectR.Label>
-            {props.items.map((item) => (
-              <SelectItem key={item} value={item}>
-                {item}
-              </SelectItem>
-            ))}
+            {isStringArray(props.items)
+              ? props.items.map((item) => (
+                  <SelectItem key={item} value={item}>
+                    {item}
+                  </SelectItem>
+                ))
+              : props.items.map((item) => (
+                  <SelectItem key={item.title} value={item.title}>
+                    <span>
+                      {item.title}:{item.price}
+                    </span>
+                  </SelectItem>
+                ))}
           </SelectR.Group>
         </SelectR.Viewport>
         <SelectR.ScrollDownButton className="flex items-center justify-center h-[25px] bg-white text-black cursor-default">
@@ -77,5 +93,9 @@ const SelectItem = React.forwardRef(
 );
 
 SelectItem.displayName = "SelectItem";
+
+function isStringArray(value: any): value is string[] {
+  return Array.isArray(value) && value.every((item) => typeof item === "string");
+}
 
 export default Select;
