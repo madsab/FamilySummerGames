@@ -4,20 +4,16 @@ import React, { FC } from "react";
 
 interface ShopItemProps {
   title: string;
+  icon?: string;
   description: string;
-  shopitems: [
-    {
-      id: number;
-      name: string;
-      price: number;
-    }
-  ];
+  children?: React.ReactNode;
 }
-const ShopItem: FC<ShopItemProps> = ({ title, description, shopitems }) => {
+const ShopItem: FC<ShopItemProps> = ({ title, description, children, icon }) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <button className=" border-2 w-3/4 shadow-blackA4 hover:bg-mauve3 inline-flex h-10 items-center justify-center rounded-[4px]  px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none">
+        <button className=" border-2 w-[48%] h-1/3 shadow-blackA4 inline-flex items-center justify-center rounded-[4px] gap-2  px-[15px] font-medium leading-none focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none">
+          {icon && <Icon icon={icon} />}
           {title}
         </button>
       </Dialog.Trigger>
@@ -28,26 +24,7 @@ const ShopItem: FC<ShopItemProps> = ({ title, description, shopitems }) => {
           <Dialog.Description className="text-mauve11 mt-[10px] mb-5 text-[15px] leading-normal">
             {description}
           </Dialog.Description>
-          <fieldset className="mb-[15px] flex items-center gap-5">
-            <label className="text-violet11 w-[90px] text-right text-[15px]" htmlFor="name">
-              Name
-            </label>
-            <input
-              className="text-black shadow-violet7 focus:shadow-violet8 inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
-              id="name"
-              defaultValue="Pedro Duarte"
-            />
-          </fieldset>
-          <fieldset className="mb-[15px] flex items-center gap-5">
-            <label className="text-violet11 w-[90px] text-right text-[15px]" htmlFor="username">
-              Username
-            </label>
-            <input
-              className="text-black shadow-violet7 focus:shadow-violet8 inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
-              id="username"
-              defaultValue="@peduarte"
-            />
-          </fieldset>
+          {children}
           <div className="mt-[25px] flex space-x-2 justify-end">
             <Dialog.Close asChild>
               <button className="bg-red-800 text-green11 hover:bg-green5 focus:shadow-green7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none focus:shadow-[0_0_0_2px] focus:outline-none">

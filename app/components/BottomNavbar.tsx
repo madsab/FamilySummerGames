@@ -2,7 +2,9 @@
 import React from "react";
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/navigation";
+import { useRouter as Router } from "next/router";
 import cn from "classnames";
+import { getServerSideProps } from "next/dist/build/templates/pages";
 
 const BottomNavbar = () => {
   const router = useRouter();

@@ -3,17 +3,16 @@ import * as SelectR from "@radix-ui/react-select";
 import classnames from "classnames";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import cn from "classnames";
+import { it } from "node:test";
 
 interface SelectProps {
   className?: string;
   title: string;
   items:
-    | [
-        {
-          title: string;
-          price: number;
-        }
-      ]
+    | {
+        title: string;
+        price: number;
+      }[]
     | string[];
   placeholder?: string;
   onChange: (value: string) => void;
@@ -34,7 +33,10 @@ const Select: FC<SelectProps> = (props) => (
       </SelectR.Icon>
     </SelectR.Trigger>
     <SelectR.Portal>
-      <SelectR.Content className="overflow-hidden bg-white rounded-md shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)]">
+      <SelectR.Content
+        aria-modal
+        className="z-10 overflow-hidden bg-white rounded-md shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)]"
+      >
         <SelectR.ScrollUpButton className="flex items-center justify-center h-[25px] bg-white text-black cursor-default">
           <Icon icon={"tabler:chevron-up"} />
         </SelectR.ScrollUpButton>
@@ -50,10 +52,8 @@ const Select: FC<SelectProps> = (props) => (
                   </SelectItem>
                 ))
               : props.items.map((item) => (
-                  <SelectItem key={item.title} value={item.title}>
-                    <span>
-                      {item.title}:{item.price}
-                    </span>
+                  <SelectItem key={item.title} value={item.title} price={item.price}>
+                    <span className="flex">{item.title}</span>
                   </SelectItem>
                 ))}
           </SelectR.Group>
@@ -70,20 +70,29 @@ type SelectItemProps = {
   className?: string;
   children: React.ReactNode;
   value: string;
+  price?: number;
 };
 
 const SelectItem = React.forwardRef(
-  ({ children, className, ...props }: SelectItemProps, forwardedRef: Ref<HTMLDivElement> | null) => {
+  ({ children, className, price, ...props }: SelectItemProps, forwardedRef: Ref<HTMLDivElement> | null) => {
     return (
       <SelectR.Item
         className={classnames(
-          "text-[17px] leading-none text-black rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none",
+          "text-[15px] leading-none text-black rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none",
           className
         )}
         {...props}
         ref={forwardedRef}
       >
         <SelectR.ItemText>{children}</SelectR.ItemText>
+        {price && (
+          <SelectR.Label className="text-[14px] leading-none text-black flex">
+            {" ("}
+            <Icon icon={"fluent-emoji:coin"} />
+            {price}
+            {")"}
+          </SelectR.Label>
+        )}
         <SelectR.ItemIndicator className="absolute left-0 w-[25px] inline-flex items-center justify-center">
           <Icon icon={"tabler:check"} />
         </SelectR.ItemIndicator>
