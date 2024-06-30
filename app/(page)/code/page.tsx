@@ -28,6 +28,7 @@ const CodePage = () => {
       if (error) {
         toast.error(error);
       } else {
+        console.log(data);
         toast.success(
           <div className="flex items-center space-x-1">
             <span>Du har lagt til:</span>
@@ -41,7 +42,7 @@ const CodePage = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col justify-center items-center space-y-4">
+    <div className="h-4/5 flex flex-col justify-center items-center space-y-4">
       <p className="text-xl">Legg inn kode:</p>
       <input
         type="text"
