@@ -9,14 +9,20 @@ import { toast } from "react-toastify";
 
 const CodePage = () => {
   const [code, setCode] = React.useState("");
-  const possibleCode = useSearchParams().get("code");
+  const params = useSearchParams();
+  let counter = 0;
 
-  if (possibleCode) {
-    setCode(possibleCode);
-  }
+  useEffect(() => {
+    const code = params.get("code");
 
-  const checkCode = async () => {
-    const amount = checkValidCode(code);
+    if (code && counter === 0) {
+      checkCode(code);
+      counter++;
+    }
+  }, []);
+
+  const checkCode = async (customCode?: string) => {
+    const amount = customCode ? checkValidCode(customCode) : checkValidCode(code);
     if (amount > 0) {
       const { data, error } = await addMoney(amount);
       if (error) {
@@ -32,10 +38,8 @@ const CodePage = () => {
     } else {
       toast.error("Koden er ugyldig", { autoClose: 1000 });
     }
-    // Check if code is correct
-    // If correct, add money
-    // If not, show error message
   };
+
   return (
     <div className="h-screen flex flex-col justify-center items-center space-y-4">
       <p className="text-xl">Legg inn kode:</p>
