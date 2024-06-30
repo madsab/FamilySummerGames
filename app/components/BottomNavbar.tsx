@@ -11,33 +11,36 @@ const BottomNavbar = () => {
   const [active, setActive] = React.useState(1);
   return (
     <div className="w-full fixed bg-slate-800 bottom-0 h-20 flex  items-center">
-      <div className={cn("flex-1 flex justify-center h-full", active === 0 && " bg-slate-900")}>
-        <button
-          onClick={() => {
-            router.push("/shop"), setActive(0);
-          }}
-        >
+      <button
+        className={cn("flex-1 flex justify-center items-center h-full", active === 0 && " bg-slate-900")}
+        onClick={() => {
+          router.push("/shop"), setActive(0);
+        }}
+      >
+        <div>
           <Icon icon={"solar:money-bag-outline"} className=" size-7" />
-        </button>
-      </div>
-      <div className={cn("flex-1 flex justify-center h-full", active === 1 && " bg-slate-900")}>
-        <button
-          onClick={() => {
-            router.push("/"), setActive(1);
-          }}
-        >
+        </div>
+      </button>
+      <button
+        className={cn("flex-1 flex justify-center items-center h-full", active === 1 && " bg-slate-900")}
+        onClick={() => {
+          router.push("/"), setActive(1);
+        }}
+      >
+        <div>
           <Icon icon={"akar-icons:home-alt1"} className=" size-7" />
-        </button>
-      </div>
-      <div className={cn("flex-1 flex justify-center h-full", active === 2 && " bg-slate-900")}>
-        <button
-          onClick={() => {
-            router.push("/code"), setActive(2);
-          }}
-        >
+        </div>
+      </button>
+      <button
+        className={cn("flex-1 flex justify-center items-center h-full", active === 2 && " bg-slate-900")}
+        onClick={() => {
+          router.push("/code"), setActive(2);
+        }}
+      >
+        <div>
           <Icon icon={"mdi:qrcode-scan"} className=" size-7" />
-        </button>
-      </div>
+        </div>
+      </button>
     </div>
   );
 };
