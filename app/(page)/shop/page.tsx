@@ -1,18 +1,17 @@
 import React from "react";
-import ShopItem from "../../components/ShopItem";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/config/auth/authOptions";
-import { redirect } from "next/navigation";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Shop from "../pages/Shop";
+import { checkUser } from "@/lib/checkUser";
+import getUserBalance from "@/app/actions/getUserBalance";
+import getAllUsers from "@/app/actions/getAllUsers";
 
 const ShopPage = async () => {
-  const session = await getServerSession(authOptions);
+  const { balance, error } = await getUserBalance();
+  const { data } = await getAllUsers();
 
-  if (!session?.user) {
-    redirect("/signin");
+  if (error) {
+    return <div>{error}</div>;
   }
-
   return (
     <div className="h-full w-full">
       <div className="mx-5 flex flex-col items-center">
@@ -21,9 +20,9 @@ const ShopPage = async () => {
       </div>
       <div className="mt-3 flex justify-center items-center">
         <Icon icon={"fluent-emoji:coin"} className="size-8" />
-        <p>: {session.user.money}</p>
+        <p>:{balance ?? 0}</p>
       </div>
-      <Shop />
+      <Shop players={data || []} />
     </div>
   );
 };
