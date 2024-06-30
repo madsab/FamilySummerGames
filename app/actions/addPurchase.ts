@@ -47,7 +47,7 @@ try {
         }
     })
     await db.user.update({
-        where: {email: formData.to},
+        where: {email: formData.from},
         data: {
             money: {
                 decrement: formData.price
