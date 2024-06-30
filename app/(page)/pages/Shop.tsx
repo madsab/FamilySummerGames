@@ -27,10 +27,11 @@ const Shop: FC<ShopProps> = ({ players }) => {
   if (!session.data?.user) {
     return <div>Loading...</div>;
   }
+  const user = session.data.user;
 
   const buyDisadvantage = async () => {
-    console.log(formData);
     const { data, error } = await addPurchase(formData);
+
     if (error) {
       toast.error(error);
     } else {
@@ -42,8 +43,8 @@ const Shop: FC<ShopProps> = ({ players }) => {
           </span>
         </div>
       );
-      setFormData(nullData);
     }
+    setFormData(nullData);
   };
   return (
     <div className="w-full h-5/6">
@@ -70,7 +71,7 @@ const Shop: FC<ShopProps> = ({ players }) => {
                       ...prevValue,
                       text: value,
                       type: "ulempe",
-                      from: session.data.user.email,
+                      from: user.email,
                     }));
                     setFormData((prevData) => ({
                       ...prevData,
@@ -86,7 +87,7 @@ const Shop: FC<ShopProps> = ({ players }) => {
                 <Select
                   title="Spiller"
                   placeholder="Velg Spiller"
-                  items={players.map((player) => player.name)}
+                  items={players.map((player) => player.name).filter((player) => player != user.name)}
                   onChange={(value) => setFormData((prevValue) => ({ ...prevValue, to: value + "@fsg.com" }))}
                 />
               </fieldset>
@@ -106,7 +107,23 @@ const Shop: FC<ShopProps> = ({ players }) => {
           onConfirm={() => null}
           title="Hint"
           description="Kjøp hint til neste spill"
-        />
+        >
+          <div>
+            <div>
+              <fieldset className="mb-[15px] flex items-center gap-5">
+                <p>Hint here</p>
+              </fieldset>
+              <div className="mt-8 flex items-center space-x-4">
+                <p>Sum:</p>
+                {formData.price && (
+                  <p className="flex items-center">
+                    <Icon icon={"fluent-emoji:coin"} /> {formData.price}
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+        </ShopItem>
         <ShopItem
           onCancel={() => setFormData(nullData)}
           onConfirm={() => null}
