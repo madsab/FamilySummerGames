@@ -5,6 +5,8 @@ import cn from "classnames";
 import BottomNavbar from "../components/BottomNavbar";
 import { getServerSession } from "next-auth";
 import Provider from "../context/Provider";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,6 +28,7 @@ export default async function RootLayout({
         <Provider session={session}>
           {children}
           <BottomNavbar />
+          <ToastContainer />
         </Provider>
       </body>
     </html>
