@@ -1,7 +1,7 @@
 "use client";
 import addMoney from "@/app/actions/addMoney";
 import checkValidCode from "@/app/actions/checkValidCode";
-import Button from "@/app/components/Button";
+import Button from "@/app/components/atoms/Button";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useSearchParams } from "next/navigation";
 import React, { use, useEffect } from "react";

@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import Select from "../../components/Select";
+import Select from "../../components/atoms/Select";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 

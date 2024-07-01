@@ -1,7 +1,6 @@
 import React from "react";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import Shop from "../pages/Shop";
-import { checkUser } from "@/lib/checkUser";
+import Shop from "../../components/Shop";
 import getUserBalance from "@/app/actions/getUserBalance";
 import getAllUsers from "@/app/actions/getAllUsers";
 
