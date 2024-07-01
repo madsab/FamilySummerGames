@@ -1,7 +1,7 @@
 "use client";
 import React, { FC } from "react";
-import ShopItem from "../../components/ShopItem";
-import Select from "@/app/components/Select";
+import ShopItem from "./organisms/ShopItem";
+import Select from "@/app/components/atoms/Select";
 import Ulemper from "@/app/utils/disadvantage.json";
 import { User } from "@prisma/client";
 import { Icon } from "@iconify/react/dist/iconify.js";
