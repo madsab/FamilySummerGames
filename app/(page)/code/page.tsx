@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 
 const CodePage = () => {
   const [code, setCode] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
   const params = useSearchParams();
   let counter = 0;
 
@@ -22,13 +23,15 @@ const CodePage = () => {
   }, []);
 
   const checkCode = async (customCode?: string) => {
+    setLoading(true);
     const amount = customCode ? checkValidCode(customCode) : checkValidCode(code);
     if (amount > 0) {
-      const { data, error } = await addMoney(amount);
+      const { error } = await addMoney(amount);
       if (error) {
+        setLoading(false);
         toast.error(error);
       } else {
-        console.log(data);
+        setLoading(false);
         toast.success(
           <div className="flex items-center space-x-1">
             <span>Du har lagt til:</span>
@@ -38,6 +41,7 @@ const CodePage = () => {
       }
     } else {
       toast.error("Koden er ugyldig", { autoClose: 1000 });
+      setLoading(false);
     }
   };
 
@@ -52,7 +56,7 @@ const CodePage = () => {
         className="mt-1 size-12 p-2 block w-full border text-black border-gray-300 rounded-md"
         required
       />
-      <Button onClick={() => checkCode()} text="Send inn" />
+      <Button onClick={() => checkCode()} loading={loading} text="Send inn" />
     </div>
   );
 };
