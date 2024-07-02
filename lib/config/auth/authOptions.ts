@@ -48,6 +48,7 @@ export const authOptions: NextAuthOptions = {
                     id: token.id,
                     familyName: token.familyName,
                     money: token.money,
+                    role: token.role,
                 }
             }
         },
@@ -59,6 +60,7 @@ export const authOptions: NextAuthOptions = {
                     id: user.id,
                     familyName: u.familyName,
                     money: u.money,
+                    role: u.role,
                 }
 
             }

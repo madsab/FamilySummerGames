@@ -3,10 +3,13 @@ import React from "react";
 import { Icon } from "@iconify/react";
 import { usePathname, useRouter } from "next/navigation";
 import cn from "classnames";
+import { useSession } from "next-auth/react";
 
 const BottomNavbar = () => {
   const router = useRouter();
   const activePath = usePathname();
+  const session = useSession();
+
   return (
     <div className="w-full fixed bg-slate-800 bottom-0 h-20 flex  items-center">
       <button
@@ -39,6 +42,21 @@ const BottomNavbar = () => {
           <Icon icon={"mdi:qrcode-scan"} className=" size-7" />
         </div>
       </button>
+      {session.data?.user.role == "ADMIN" && (
+        <button
+          className={cn(
+            "flex-1 flex justify-center items-center h-full",
+            activePath === "/dashboard" && " bg-slate-900"
+          )}
+          onClick={() => {
+            router.push("/dashboard");
+          }}
+        >
+          <div>
+            <Icon icon={"hugeicons:computer"} className=" size-7" />
+          </div>
+        </button>
+      )}
     </div>
   );
 };
