@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import Button from "@/app/components/atoms/Button";
 
@@ -10,6 +10,11 @@ const LoginPage: React.FC = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+
+  const session = useSession();
+  if (session.data?.user) {
+    router.push("/");
+  }
 
   const signin = async () => {
     setLoading(true);

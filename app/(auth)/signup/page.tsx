@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import Select from "../../components/atoms/Select";
-import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
+import { redirect, useRouter } from "next/navigation";
+import { signIn, useSession } from "next-auth/react";
 import Button from "@/app/components/atoms/Button";
 
 const SignupPage: React.FC = () => {
@@ -14,7 +14,10 @@ const SignupPage: React.FC = () => {
     familyName: "",
     money: 100000,
   });
-
+  const session = useSession();
+  if (session.data?.user) {
+    redirect("/");
+  }
   const registerUser = async () => {
     setLoading(true);
     const response = await fetch("/api/signup", {
