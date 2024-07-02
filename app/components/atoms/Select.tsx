@@ -8,10 +8,12 @@ import { it } from "node:test";
 interface SelectProps {
   className?: string;
   title: string;
+  groups?: string[];
   items:
     | {
+        group?: string;
         title: string;
-        price: number;
+        price?: number;
       }[]
     | string[];
   placeholder?: string;
@@ -41,22 +43,48 @@ const Select: FC<SelectProps> = (props) => (
           <Icon icon={"tabler:chevron-up"} />
         </SelectR.ScrollUpButton>
         <SelectR.Viewport className="p-[5px]">
-          <SelectR.Group className="space-y-3 py-3">
-            <SelectR.Label className="px-[25px] text-lg leading-[25px] text-red-300 underline">
-              {props.title}
-            </SelectR.Label>
-            {isStringArray(props.items)
-              ? props.items.map((item) => (
-                  <SelectItem key={item} value={item}>
-                    {item}
-                  </SelectItem>
-                ))
-              : props.items.map((item) => (
-                  <SelectItem key={item.title} value={item.title} price={item.price}>
-                    <span className="flex">{item.title}</span>
-                  </SelectItem>
-                ))}
-          </SelectR.Group>
+          {props.groups ? (
+            props.groups.map((group) => (
+              <SelectR.Group key={group} className="space-y-3 py-3">
+                <SelectR.Label className="px-[25px] text-sm leading-[25px] text-red-300 underline">
+                  {group}
+                </SelectR.Label>
+                {!isStringArray(props.items)
+                  ? props.items
+                      .filter((item) => item.group === group)
+                      .map((item) => (
+                        <SelectItem key={item.title} value={item.title} price={item.price}>
+                          <span className="flex">{item.title}</span>
+                        </SelectItem>
+                      ))
+                  : props.items.map((item) => {
+                      console.log("Kom hit for en stund siden");
+                      return (
+                        <SelectItem key={item} value={item}>
+                          {item}
+                        </SelectItem>
+                      );
+                    })}
+              </SelectR.Group>
+            ))
+          ) : (
+            <SelectR.Group className="space-y-3 py-3">
+              <SelectR.Label className="px-[25px] text-lg leading-[25px] text-red-300 underline">
+                {props.title}
+              </SelectR.Label>
+              {isStringArray(props.items)
+                ? props.items.map((item) => (
+                    <SelectItem key={item} value={item}>
+                      {item}
+                    </SelectItem>
+                  ))
+                : props.items.map((item) => (
+                    <SelectItem key={item.title} value={item.title} price={item.price}>
+                      <span className="flex">{item.title}</span>
+                    </SelectItem>
+                  ))}
+            </SelectR.Group>
+          )}
         </SelectR.Viewport>
         <SelectR.ScrollDownButton className="flex items-center justify-center h-[25px] bg-white text-black cursor-default">
           <Icon icon={"tabler:chevron-down"} />
