@@ -9,7 +9,7 @@ export async function POST(request: Request){
     const body = await request.json();
     const {name, familyName, money, email} = body.data;
     if(!name || !familyName){
-        return NextResponse.json("Missing fields", { status: 400 });
+        return NextResponse.json({error: "Vennligst fyll ut alle felter", status: 400 });
     }
 
     const exists = await prisma.user.findFirst({
@@ -19,7 +19,7 @@ export async function POST(request: Request){
     })
 
     if(exists){
-        return NextResponse.json("User already exists", { status: 400 });
+        return NextResponse.json({error: "Bruker finnes allerede", status: 400 });
     }
 
     const hashedPassword = await bcrypt.hash("password", 10);
