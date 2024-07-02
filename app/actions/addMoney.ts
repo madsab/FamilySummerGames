@@ -8,13 +8,14 @@ async function addMoney(amount:number): Promise<{
     data?: number;
     error?: string;
 }> {
-    const {user, error} = await checkUser();
-    if (error) {
-        return { error };
+    const session = await getServerSession();
+    if (!session?.user) {
+        return { error: "You must be signed in to call this API" };
     }
+
     try {
         const updatedUser = await db.user.update({
-            where: {email: user?.email},
+            where: {email: session.user?.email},
             data: {
                 money: {
                     increment: amount

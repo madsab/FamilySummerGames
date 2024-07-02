@@ -3,15 +3,20 @@
 import { checkUser } from "@/lib/checkUser";
 import { db } from "@/lib/db";
 import exp from "constants";
+import { getServerSession } from "next-auth";
 
 async function addCode(code: string): Promise<{
     data?: string;
     error?: string;
 }> {
-    const {user} = await checkUser();
+    const session = await getServerSession();
+    if (!session?.user) {
+        return { error: "You must be signed in to call this API" };
+    }
+
     try {
         await db.user.update({
-            where: { email: user?.email },
+            where: { email: session.user?.email },
             data: {
                 codes: {
                     push: code
