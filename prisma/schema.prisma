@@ -18,6 +18,7 @@ model User {
   money          Int
   role           Role            @default(USER)
   codes          String[]
+  hints          String[]
   accounts       Account[]
   sessions       Session[]
   // Optional for WebAuthn support
@@ -34,6 +35,14 @@ model Purchase {
   from      String
   to        String
   price     Int
+  createdAt DateTime @default(now())
+}
+
+model Hint {
+  id        String   @id @default(uuid()) @map("_id")
+  localID   Int      @unique
+  game      String
+  hint      String
   createdAt DateTime @default(now())
 }
 
