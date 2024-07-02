@@ -10,10 +10,22 @@ interface ShopItemProps {
   onConfirm: () => void;
   onCancel: () => void;
   disabled?: boolean;
+  noCloseOnConfirm?: boolean;
+  onOpen?: () => void;
 }
-const ShopItem: FC<ShopItemProps> = ({ title, description, children, icon, onConfirm, onCancel, disabled }) => {
+const ShopItem: FC<ShopItemProps> = ({
+  title,
+  description,
+  children,
+  icon,
+  onConfirm,
+  onCancel,
+  onOpen,
+  disabled,
+  noCloseOnConfirm,
+}) => {
   return (
-    <Dialog.Root>
+    <Dialog.Root onOpenChange={onOpen}>
       <Dialog.Trigger asChild>
         <button className=" border-2 w-[48%] h-1/3 shadow-blackA4 inline-flex items-center justify-center rounded-[4px] gap-2  px-[15px] font-medium leading-none focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none">
           {icon && <Icon icon={icon} />}
@@ -37,14 +49,23 @@ const ShopItem: FC<ShopItemProps> = ({ title, description, children, icon, onCon
                 Avbryt
               </button>
             </Dialog.Close>
-            <Dialog.Close asChild disabled={disabled}>
+            {noCloseOnConfirm ? (
               <button
                 onClick={onConfirm}
                 className="bg-green-600 text-green11 hover:bg-green5 focus:shadow-green7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none focus:shadow-[0_0_0_2px] focus:outline-none"
               >
                 Kjøp
               </button>
-            </Dialog.Close>
+            ) : (
+              <Dialog.Close asChild disabled={disabled}>
+                <button
+                  onClick={onConfirm}
+                  className="bg-green-600 text-green11 hover:bg-green5 focus:shadow-green7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none focus:shadow-[0_0_0_2px] focus:outline-none"
+                >
+                  Kjøp
+                </button>
+              </Dialog.Close>
+            )}
           </div>
           <Dialog.Close asChild>
             <button
