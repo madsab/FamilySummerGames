@@ -31,7 +31,7 @@ const Shop: FC<ShopProps> = ({ players }) => {
   }
   const user = session.data.user;
 
-  const buyDisadvantage = async () => {
+  const purchase = async () => {
     const { data, error } = await addPurchase(formData);
 
     if (error) {
@@ -54,7 +54,7 @@ const Shop: FC<ShopProps> = ({ players }) => {
         <ShopItem
           disabled={disabled}
           onCancel={() => setFormData(nullData)}
-          onConfirm={() => buyDisadvantage()}
+          onConfirm={() => purchase()}
           title="Ulemper"
           icon="tabler:alert-triangle"
           description="Kjøp ulemper andre spillere må ha under neste aktivitet"
@@ -78,7 +78,7 @@ const Shop: FC<ShopProps> = ({ players }) => {
                       from: user.email,
                       price: Ulemper.find((item) => item.title === value)?.price || 0,
                     }));
-                    setTimeout(() => setDisabled(false), 1000);
+                    setTimeout(() => setDisabled(false), 500);
                   }}
                 />
               </fieldset>
@@ -98,7 +98,7 @@ const Shop: FC<ShopProps> = ({ players }) => {
                     .map((player) => ({ title: player.name, group: player.familyName }))}
                   onChange={(value) => {
                     setFormData((prevValue) => ({ ...prevValue, to: value + "@fsg.com" }));
-                    setTimeout(() => setDisabled(false), 1000);
+                    setTimeout(() => setDisabled(false), 500);
                   }}
                 />
               </fieldset>
@@ -125,7 +125,7 @@ const Shop: FC<ShopProps> = ({ players }) => {
         <ShopItem
           disabled={disabled}
           onCancel={() => setFormData(nullData)}
-          onConfirm={() => null}
+          onConfirm={() => purchase()}
           title="Kjøp spiller"
           description="Kjøp en spiller du tjener pengene til under neste spill."
         >
@@ -145,8 +145,15 @@ const Shop: FC<ShopProps> = ({ players }) => {
                 .filter((player) => player.name != user.name)
                 .map((player) => ({ title: player.name, group: player.familyName }))}
               onChange={(value) => {
-                setFormData((prevValue) => ({ ...prevValue, to: value + "@fsg.com" }));
-                setTimeout(() => setDisabled(false), 1000);
+                setFormData((prevValue) => ({
+                  ...prevValue,
+                  to: value + "@fsg.com",
+                  type: "Kjøpe spiller",
+                  text: "Kjøpt " + value,
+                  price: 150000,
+                  from: user.email,
+                }));
+                setTimeout(() => setDisabled(false), 500);
               }}
             />
           </fieldset>
