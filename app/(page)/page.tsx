@@ -7,10 +7,8 @@ import Image from "next/image";
 import Logo from "../(page)/img/FSG_Logo.webp";
 import Podium from "../components/Podium";
 import getPodium from "../actions/getPodium";
-import { toast } from "react-toastify";
 import LogOut from "../components/LogOut";
 import Rules from "../components/Rules";
-import Button from "../components/atoms/Button";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
