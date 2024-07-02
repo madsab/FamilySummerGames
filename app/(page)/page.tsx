@@ -9,6 +9,8 @@ import Podium from "../components/Podium";
 import getPodium from "../actions/getPodium";
 import { toast } from "react-toastify";
 import LogOut from "../components/LogOut";
+import Rules from "../components/Rules";
+import Button from "../components/atoms/Button";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -28,10 +30,11 @@ export default async function Home() {
           {balance}
         </p>
       </div>
-      <div className="py-4">
+      <div className="pt-6 space-y-10 flex flex-col items-center">
         <p className="text-2xl">God dag, {session.user.name}</p>
+        {first && second && third && <Podium first={first} second={second} third={third} />}
+        <Rules />
       </div>
-      {first && second && third && <Podium first={first} second={second} third={third} />}
       <LogOut />
     </div>
   );

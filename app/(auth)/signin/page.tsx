@@ -48,7 +48,7 @@ const LoginPage: React.FC = () => {
         {error && <p className="text-red-500 text-sm w-[200px] text-center ">{error}</p>}
         <Button onClick={signin} loading={loading} text="Logg inn" />
         <div className="w-full text-center">
-          <Link href="/signup" className="text-red-600 ">
+          <Link href="/signup" className="text-red-200 ">
             Ingen bruker?
           </Link>
         </div>

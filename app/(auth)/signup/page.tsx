@@ -40,7 +40,7 @@ const SignupPage: React.FC = () => {
   return (
     <div className="container mx-auto max-w-md flex flex-col items-center space-y-4">
       <h2 className="text-4xl font-bold mb-4">Registrer deg</h2>
-      <div className="text-black">
+      <div>
         <label htmlFor="name" className="block text-lg font-medium ">
           Ditt fornavn:
         </label>
@@ -57,7 +57,7 @@ const SignupPage: React.FC = () => {
               money: data.money,
             })
           }
-          className="mt-1 size-12 p-4 block w-full border border-gray-300 rounded-md"
+          className="mt-1 size-12 p-4 block w-full border border-gray-300 rounded-md text-black"
           required
         />
       </div>

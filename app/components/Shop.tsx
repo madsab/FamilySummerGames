@@ -8,6 +8,7 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { useSession } from "next-auth/react";
 import addPurchase, { PurchaseData } from "@/app/actions/addPurchase";
 import { toast } from "react-toastify";
+import Sum from "./atoms/Sum";
 
 interface ShopProps {
   players: User[];
@@ -20,7 +21,7 @@ const Shop: FC<ShopProps> = ({ players }) => {
     text: null,
     to: null,
     from: null,
-    price: null,
+    price: 0,
   };
   const [formData, setFormData] = React.useState<PurchaseData>(nullData);
 
@@ -87,18 +88,16 @@ const Shop: FC<ShopProps> = ({ players }) => {
                 <Select
                   title="Spiller"
                   placeholder="Velg Spiller"
-                  items={players.map((player) => player.name).filter((player) => player != user.name)}
+                  groups={players
+                    .map((player) => player.familyName)
+                    .filter((value, index, self) => self.indexOf(value) === index)}
+                  items={players
+                    .filter((player) => player.name != user.name)
+                    .map((player) => ({ title: player.name, group: player.familyName }))}
                   onChange={(value) => setFormData((prevValue) => ({ ...prevValue, to: value + "@fsg.com" }))}
                 />
               </fieldset>
-              <div className="mt-8 flex items-center space-x-4">
-                <p>Sum:</p>
-                {formData.price && (
-                  <p className="flex items-center">
-                    <Icon icon={"fluent-emoji:coin"} /> {formData.price}
-                  </p>
-                )}
-              </div>
+              <Sum sum={formData.price} />
             </div>
           </div>
         </ShopItem>
@@ -113,14 +112,7 @@ const Shop: FC<ShopProps> = ({ players }) => {
               <fieldset className="mb-[15px] flex items-center gap-5">
                 <p>Hint here</p>
               </fieldset>
-              <div className="mt-8 flex items-center space-x-4">
-                <p>Sum:</p>
-                {formData.price && (
-                  <p className="flex items-center">
-                    <Icon icon={"fluent-emoji:coin"} /> {formData.price}
-                  </p>
-                )}
-              </div>
+              <Sum sum={formData.price} />
             </div>
           </div>
         </ShopItem>
@@ -128,8 +120,27 @@ const Shop: FC<ShopProps> = ({ players }) => {
           onCancel={() => setFormData(nullData)}
           onConfirm={() => null}
           title="Kjøp spiller"
-          description="lorem"
-        />
+          description="Kjøp en spiller du tjener pengene til under neste spill."
+        >
+          <fieldset className="mb-[15px] flex items-center gap-5">
+            <label className="text-violet11 w-[90px] text-right text-[15px]" htmlFor="username">
+              Spiller:
+            </label>
+            <Select
+              title="Spiller"
+              placeholder="Velg Spiller"
+              groups={players
+                .filter((player) => player.familyName != user.familyName)
+                .map((player) => player.familyName)
+                .filter((value, index, self) => self.indexOf(value) === index)}
+              items={players
+                .filter((player) => player.name != user.name)
+                .map((player) => ({ title: player.name, group: player.familyName }))}
+              onChange={(value) => setFormData((prevValue) => ({ ...prevValue, to: value + "@fsg.com" }))}
+            />
+          </fieldset>
+          <Sum sum={formData.price} />
+        </ShopItem>
       </div>
     </div>
   );
