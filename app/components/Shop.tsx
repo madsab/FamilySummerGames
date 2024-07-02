@@ -3,18 +3,20 @@ import { FC, useState } from "react";
 import ShopItem from "./organisms/ShopItem";
 import Select from "@/app/components/atoms/Select";
 import Ulemper from "@/app/utils/disadvantage.json";
-import { User } from "@prisma/client";
+import { Hint as HintType, User } from "@prisma/client";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useSession } from "next-auth/react";
 import addPurchase, { PurchaseData } from "@/app/actions/addPurchase";
 import { toast } from "react-toastify";
 import Sum from "./atoms/Sum";
+import Hint from "./atoms/Hint";
 
 interface ShopProps {
   players: User[];
+  hint?: HintType;
 }
 
-const Shop: FC<ShopProps> = ({ players }) => {
+const Shop: FC<ShopProps> = ({ players, hint }) => {
   const session = useSession();
   const nullData = {
     type: null,
@@ -25,6 +27,7 @@ const Shop: FC<ShopProps> = ({ players }) => {
   };
   const [formData, setFormData] = useState<PurchaseData>(nullData);
   const [disabled, setDisabled] = useState(false);
+  const [flipped, setFlipped] = useState(false);
 
   if (!session.data?.user) {
     return <div>No user</div>;
@@ -36,15 +39,21 @@ const Shop: FC<ShopProps> = ({ players }) => {
 
     if (error) {
       toast.error(error);
+      if (error.includes("Du har allerede kjøpt dette hintet")) {
+        setFlipped(true);
+      }
     } else {
       toast.success(
         <div className="flex items-center text-sm ">
           <span className="flex items-center">
-            Kjøpt &apos;{data?.text}&apos; for <Icon icon={"fluent-emoji:coin"} />
+            Kjøpt &apos;{formData.type === "hint" ? "Hint" : data?.text}&apos; for <Icon icon={"fluent-emoji:coin"} />
             {data?.price} mynter!
           </span>
         </div>
       );
+      if (formData.type === "hint") {
+        setFlipped(true);
+      }
     }
     setFormData(nullData);
   };
@@ -66,7 +75,7 @@ const Shop: FC<ShopProps> = ({ players }) => {
                   Type:
                 </label>
                 <Select
-                  onTriggerClick={() => setDisabled(true)}
+                  onTriggerClick={() => setDisabled(!disabled)}
                   title="Ulemper"
                   placeholder="Velg Ulempe"
                   items={Ulemper}
@@ -87,7 +96,7 @@ const Shop: FC<ShopProps> = ({ players }) => {
                   Spiller:
                 </label>
                 <Select
-                  onTriggerClick={() => setDisabled(true)}
+                  onTriggerClick={() => setDisabled(!disabled)}
                   title="Spiller"
                   placeholder="Velg Spiller"
                   groups={players
@@ -107,18 +116,30 @@ const Shop: FC<ShopProps> = ({ players }) => {
           </div>
         </ShopItem>
         <ShopItem
+          onOpen={() => {
+            setFormData(() => ({
+              type: "hint",
+              text: hint?.localID.toString() || "Ingen hint",
+              to: user.email,
+              from: user.email,
+              price: 10000,
+            }));
+          }}
+          noCloseOnConfirm
           disabled={disabled}
           onCancel={() => setFormData(nullData)}
-          onConfirm={() => null}
+          onConfirm={() => {
+            purchase();
+          }}
           title="Hint"
           description="Kjøp hint til neste spill"
         >
           <div>
             <div>
-              <fieldset className="mb-[15px] flex items-center gap-5">
-                <p>Hint here</p>
+              <fieldset className="mb-[15px] flex items-center gap-5 justify-center">
+                <Hint flipped={flipped} currentHint={hint} />
               </fieldset>
-              <Sum sum={formData.price} />
+              <Sum sum={10000} />
             </div>
           </div>
         </ShopItem>
@@ -134,7 +155,7 @@ const Shop: FC<ShopProps> = ({ players }) => {
               Spiller:
             </label>
             <Select
-              onTriggerClick={() => setDisabled(true)}
+              onTriggerClick={() => setDisabled(!disabled)}
               title="Spiller"
               placeholder="Velg Spiller"
               groups={players

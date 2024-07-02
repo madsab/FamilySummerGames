@@ -31,7 +31,8 @@ export async function POST(request: Request){
             familyName,
             money,
             hashedPassword,
-            codes: []
+            codes: [],
+            hints: []
         }
     })
 

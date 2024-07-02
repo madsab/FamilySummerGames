@@ -21,11 +21,34 @@ async function addPurchase(formData: PurchaseData): Promise<PurchaseResult> {
 
     //Check if the form data is valid
     if (!formData.text || !formData.to || !formData.price || !formData.from || !formData.type) {
+        console.log(formData)
         return { error: "Vennligst fyll ut alle feltene" };
     }
 
 
 try {
+    if (formData.type === "hint"){
+        if (formData.text === "Ingen hint"){
+            return { error: "Ingen hint å kjøpe" };
+        }
+        const hints = await db.user.findUnique({
+            where: {email: formData.from},
+            select: {hints: true}
+        })
+        if (hints?.hints.includes(formData.text)){
+            return { error: "Du har allerede kjøpt dette hintet" };
+        }
+        await db.user.update({
+            where: {email: formData.from},
+            data: {
+                hints: {
+                    push: formData.text
+                }
+            }
+        })
+
+    }
+
     const purchasingUser = await db.user.findUnique({
         where: {email: formData.from},
     })
