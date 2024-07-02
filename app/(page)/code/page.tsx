@@ -24,7 +24,7 @@ const CodePage = () => {
 
   const checkCode = async (customCode?: string) => {
     setLoading(true);
-    const amount = customCode ? checkValidCode(customCode) : checkValidCode(code);
+    const amount = customCode ? await checkValidCode(customCode) : await checkValidCode(code);
     if (amount > 0) {
       const { error } = await addMoney(amount);
       if (error) {
@@ -41,7 +41,11 @@ const CodePage = () => {
         );
       }
     } else {
-      toast.error("Koden er ugyldig", { autoClose: 1000 });
+      if (amount < 0) {
+        toast.error("Koden er allerede brukt", { autoClose: 1000 });
+      } else {
+        toast.error("Koden er ugyldig", { autoClose: 1000 });
+      }
       setLoading(false);
     }
   };
