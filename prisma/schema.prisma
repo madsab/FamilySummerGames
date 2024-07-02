@@ -17,6 +17,7 @@ model User {
   familyName     String
   money          Int
   role           Role            @default(USER)
+  codes          String[]
   accounts       Account[]
   sessions       Session[]
   // Optional for WebAuthn support
