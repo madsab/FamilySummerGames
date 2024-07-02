@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 export interface PurchaseData {
     type: string | null;
     text: string | null;
-    price: number | null;
+    price: number;
     to?: string | null;
     from: string | null;
     createdAt?: Date;
