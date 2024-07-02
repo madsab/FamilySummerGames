@@ -4,7 +4,7 @@ import checkValidCode from "@/app/actions/checkValidCode";
 import Button from "@/app/components/atoms/Button";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useSearchParams } from "next/navigation";
-import React, { use, useEffect } from "react";
+import React, { useEffect } from "react";
 import { toast } from "react-toastify";
 
 const CodePage = () => {
@@ -32,6 +32,7 @@ const CodePage = () => {
         toast.error(error);
       } else {
         setLoading(false);
+        setCode("");
         toast.success(
           <div className="flex items-center space-x-1">
             <span>Du har lagt til:</span>
@@ -52,6 +53,7 @@ const CodePage = () => {
         type="text"
         id="name"
         name="name"
+        value={code}
         onChange={(e) => setCode(e.target.value)}
         className="mt-1 size-12 p-2 block w-full border text-black border-gray-300 rounded-md"
         required
