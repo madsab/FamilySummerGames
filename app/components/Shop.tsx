@@ -1,5 +1,5 @@
 "use client";
-import React, { FC } from "react";
+import { FC, useState } from "react";
 import ShopItem from "./organisms/ShopItem";
 import Select from "@/app/components/atoms/Select";
 import Ulemper from "@/app/utils/disadvantage.json";
@@ -23,10 +23,11 @@ const Shop: FC<ShopProps> = ({ players }) => {
     from: null,
     price: 0,
   };
-  const [formData, setFormData] = React.useState<PurchaseData>(nullData);
+  const [formData, setFormData] = useState<PurchaseData>(nullData);
+  const [disabled, setDisabled] = useState(false);
 
   if (!session.data?.user) {
-    return <div>Loading...</div>;
+    return <div>No user</div>;
   }
   const user = session.data.user;
 
@@ -51,6 +52,7 @@ const Shop: FC<ShopProps> = ({ players }) => {
     <div className="w-full h-5/6">
       <div className="flex flex-wrap h-full p-4 gap-3">
         <ShopItem
+          disabled={disabled}
           onCancel={() => setFormData(nullData)}
           onConfirm={() => buyDisadvantage()}
           title="Ulemper"
@@ -64,6 +66,7 @@ const Shop: FC<ShopProps> = ({ players }) => {
                   Type:
                 </label>
                 <Select
+                  onTriggerClick={() => setDisabled(true)}
                   title="Ulemper"
                   placeholder="Velg Ulempe"
                   items={Ulemper}
@@ -73,11 +76,9 @@ const Shop: FC<ShopProps> = ({ players }) => {
                       text: value,
                       type: "ulempe",
                       from: user.email,
-                    }));
-                    setFormData((prevData) => ({
-                      ...prevData,
                       price: Ulemper.find((item) => item.title === value)?.price || 0,
                     }));
+                    setTimeout(() => setDisabled(false), 1000);
                   }}
                 />
               </fieldset>
@@ -86,6 +87,7 @@ const Shop: FC<ShopProps> = ({ players }) => {
                   Spiller:
                 </label>
                 <Select
+                  onTriggerClick={() => setDisabled(true)}
                   title="Spiller"
                   placeholder="Velg Spiller"
                   groups={players
@@ -94,7 +96,10 @@ const Shop: FC<ShopProps> = ({ players }) => {
                   items={players
                     .filter((player) => player.name != user.name)
                     .map((player) => ({ title: player.name, group: player.familyName }))}
-                  onChange={(value) => setFormData((prevValue) => ({ ...prevValue, to: value + "@fsg.com" }))}
+                  onChange={(value) => {
+                    setFormData((prevValue) => ({ ...prevValue, to: value + "@fsg.com" }));
+                    setTimeout(() => setDisabled(false), 1000);
+                  }}
                 />
               </fieldset>
               <Sum sum={formData.price} />
@@ -102,6 +107,7 @@ const Shop: FC<ShopProps> = ({ players }) => {
           </div>
         </ShopItem>
         <ShopItem
+          disabled={disabled}
           onCancel={() => setFormData(nullData)}
           onConfirm={() => null}
           title="Hint"
@@ -117,6 +123,7 @@ const Shop: FC<ShopProps> = ({ players }) => {
           </div>
         </ShopItem>
         <ShopItem
+          disabled={disabled}
           onCancel={() => setFormData(nullData)}
           onConfirm={() => null}
           title="Kjøp spiller"
@@ -127,6 +134,7 @@ const Shop: FC<ShopProps> = ({ players }) => {
               Spiller:
             </label>
             <Select
+              onTriggerClick={() => setDisabled(true)}
               title="Spiller"
               placeholder="Velg Spiller"
               groups={players
@@ -136,7 +144,10 @@ const Shop: FC<ShopProps> = ({ players }) => {
               items={players
                 .filter((player) => player.name != user.name)
                 .map((player) => ({ title: player.name, group: player.familyName }))}
-              onChange={(value) => setFormData((prevValue) => ({ ...prevValue, to: value + "@fsg.com" }))}
+              onChange={(value) => {
+                setFormData((prevValue) => ({ ...prevValue, to: value + "@fsg.com" }));
+                setTimeout(() => setDisabled(false), 1000);
+              }}
             />
           </fieldset>
           <Sum sum={formData.price} />

@@ -9,8 +9,9 @@ interface ShopItemProps {
   children?: React.ReactNode;
   onConfirm: () => void;
   onCancel: () => void;
+  disabled?: boolean;
 }
-const ShopItem: FC<ShopItemProps> = ({ title, description, children, icon, onConfirm, onCancel }) => {
+const ShopItem: FC<ShopItemProps> = ({ title, description, children, icon, onConfirm, onCancel, disabled }) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
@@ -28,7 +29,7 @@ const ShopItem: FC<ShopItemProps> = ({ title, description, children, icon, onCon
           </Dialog.Description>
           {children}
           <div className="mt-[25px] flex space-x-2 justify-end">
-            <Dialog.Close asChild>
+            <Dialog.Close asChild disabled={disabled}>
               <button
                 onClick={onCancel}
                 className="bg-red-800 text-green11 hover:bg-green5 focus:shadow-green7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none focus:shadow-[0_0_0_2px] focus:outline-none"
@@ -36,7 +37,7 @@ const ShopItem: FC<ShopItemProps> = ({ title, description, children, icon, onCon
                 Avbryt
               </button>
             </Dialog.Close>
-            <Dialog.Close asChild>
+            <Dialog.Close asChild disabled={disabled}>
               <button
                 onClick={onConfirm}
                 className="bg-green-600 text-green11 hover:bg-green5 focus:shadow-green7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none focus:shadow-[0_0_0_2px] focus:outline-none"
