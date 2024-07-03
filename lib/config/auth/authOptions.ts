@@ -49,6 +49,8 @@ export const authOptions: NextAuthOptions = {
                     familyName: token.familyName,
                     money: token.money,
                     role: token.role,
+                    hints: token.hints,
+                    codes: token.codes,
                 }
             }
         },
@@ -61,6 +63,8 @@ export const authOptions: NextAuthOptions = {
                     familyName: u.familyName,
                     money: u.money,
                     role: u.role,
+                    hints: u.hints,
+                    codes: u.codes,
                 }
 
             }

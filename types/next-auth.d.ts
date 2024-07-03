@@ -19,6 +19,8 @@ declare module 'next-auth' {
     createdAt: Date;
     updatedAt: Date;
     // add other custom fields if needed
+    codes: string[];
+    hints: string[];
   }
 }
 
