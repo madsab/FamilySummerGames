@@ -11,13 +11,15 @@ import { toast } from "react-toastify";
 import Sum from "./atoms/Sum";
 import Hint from "./atoms/Hint";
 import { Hint as HintType } from "@prisma/client";
+import { Disadvantage } from "@/types/disadvantage";
 
 interface ShopProps {
   players: User[];
   hint?: HintType;
+  disadvantage: Disadvantage[];
 }
 
-const Shop: FC<ShopProps> = ({ players, hint }) => {
+const Shop: FC<ShopProps> = ({ players, hint, disadvantage }) => {
   const session = useSession();
   const nullData = {
     type: null,
@@ -80,7 +82,7 @@ const Shop: FC<ShopProps> = ({ players, hint }) => {
                   onTriggerClick={() => setDisabled(!disabled)}
                   title="Ulemper"
                   placeholder="Velg Ulempe"
-                  items={Ulemper}
+                  items={disadvantage}
                   onChange={(value) => {
                     setFormData((prevValue) => ({
                       ...prevValue,
