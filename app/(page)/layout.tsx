@@ -7,6 +7,8 @@ import { getServerSession } from "next-auth";
 import Provider from "../context/Provider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { authOptions } from "@/lib/config/auth/authOptions";
+import { redirect } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,14 +22,15 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
+  const user = session?.user;
 
   return (
     <html lang="en">
       <body className={cn(inter.className, "w-full flex flex-col items-center h-screen")}>
         <Provider session={session}>
           {children}
-          <BottomNavbar />
+          <BottomNavbar user={user} />
           <ToastContainer />
         </Provider>
       </body>

@@ -1,15 +1,17 @@
 "use client";
-import React from "react";
+import React, { FC } from "react";
 import { Icon } from "@iconify/react";
 import { usePathname, useRouter } from "next/navigation";
 import cn from "classnames";
 import { useSession } from "next-auth/react";
+import { User } from "@prisma/client";
 
-const BottomNavbar = () => {
+interface BottomNavbarProps {
+  user: User | undefined;
+}
+const BottomNavbar: FC<BottomNavbarProps> = ({ user }) => {
   const router = useRouter();
   const activePath = usePathname();
-  const session = useSession();
-
   return (
     <div className="w-full fixed bg-slate-800 bottom-0 h-20 flex  items-center">
       <button
@@ -42,7 +44,7 @@ const BottomNavbar = () => {
           <Icon icon={"mdi:qrcode-scan"} className=" size-7" />
         </div>
       </button>
-      {session.data?.user.role == "ADMIN" && (
+      {user?.role == "ADMIN" && (
         <button
           className={cn(
             "flex-1 flex justify-center items-center h-full",
