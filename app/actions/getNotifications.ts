@@ -9,7 +9,14 @@ async function getNotifications(user?: User): Promise<{
 }>{
     try {
         if (!user) {
-            const notifications = await db.purchase.findMany();
+            const notifications = await db.purchase.findMany({
+                where: {
+                    NOT:[
+                        { type: "hint" }
+                    ]
+                }
+
+            });
             return { notifications };
         }
         const notifications = await db.purchase.findMany({
