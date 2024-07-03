@@ -21,6 +21,7 @@ declare module 'next-auth' {
     // add other custom fields if needed
     codes: string[];
     hints: string[];
+    disadventages: string[];
   }
 }
 

@@ -51,6 +51,7 @@ export const authOptions: NextAuthOptions = {
                     role: token.role,
                     hints: token.hints,
                     codes: token.codes,
+                    disadventages: token.disadventages
                 }
             }
         },
@@ -65,6 +66,7 @@ export const authOptions: NextAuthOptions = {
                     role: u.role,
                     hints: u.hints,
                     codes: u.codes,
+                    disadventages: u.disadventages
                 }
 
             }
