@@ -162,7 +162,8 @@ const Shop: FC<ShopProps> = ({ players, hint }) => {
             purchase();
           }}
           title="Hint"
-          description="Kjøp hint til neste spill"
+          icon="fluent:lightbulb-20-filled"
+          description="Kjøp hint til neste spill. (Har du kjøpt hintet, trykk kjøp for å se det på nytt)"
         >
           <div>
             <div>
@@ -178,6 +179,7 @@ const Shop: FC<ShopProps> = ({ players, hint }) => {
           onCancel={() => setFormData(nullData)}
           onConfirm={() => purchase()}
           title="Kjøp spiller"
+          icon="fluent:people-team-20-filled"
           description="Kjøp en spiller du tjener pengene til under neste spill."
         >
           <fieldset className="mb-[15px] flex items-center gap-5">
