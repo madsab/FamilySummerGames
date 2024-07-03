@@ -4,12 +4,23 @@ import Select from "./atoms/Select";
 import Button from "./atoms/Button";
 import { Hint } from "@/types/hint";
 import setHint from "../actions/setHint";
+import { toast } from "react-toastify";
 
 interface D_HintProps {
   hints: Hint[];
 }
 const D_Hint: FC<D_HintProps> = ({ hints }) => {
-  const [activeHint, setActiveHint] = useState<string | null>();
+  const [activeHint, setActiveHint] = useState<string>("");
+
+  const updateHint = async () => {
+    const { error } = await setHint(activeHint);
+
+    if (error) {
+      toast.error(error);
+    } else {
+      toast.success("Hint updated");
+    }
+  };
 
   return (
     <div className="border-2 p-4 rounded-md w-2/3 space-y-4 ">
@@ -27,8 +38,8 @@ const D_Hint: FC<D_HintProps> = ({ hints }) => {
             className="text-sm"
             text="Confirm"
             onClick={() => {
-              setHint(activeHint);
-              setActiveHint(null);
+              updateHint();
+              setActiveHint("");
             }}
           />
         )}
