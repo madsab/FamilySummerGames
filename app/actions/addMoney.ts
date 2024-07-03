@@ -2,6 +2,7 @@
 import { checkUser } from "@/lib/checkUser";
 import { db } from "@/lib/db";
 import { getServerSession } from "next-auth";
+import { revalidatePath } from "next/cache";
 
 
 async function addMoney(amount:number): Promise<{
@@ -22,8 +23,8 @@ async function addMoney(amount:number): Promise<{
                 }
             }
         })
+        revalidatePath("/shop")
         return { data: updatedUser.money }
-
     } catch (error) {
         return { error: "Could not add money" }
     }
