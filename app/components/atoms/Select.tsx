@@ -3,7 +3,6 @@ import * as SelectR from "@radix-ui/react-select";
 import classnames from "classnames";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import cn from "classnames";
-import { it } from "node:test";
 
 interface SelectProps {
   className?: string;

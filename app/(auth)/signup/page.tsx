@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Select from "../../components/atoms/Select";
-import { redirect, useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
 import Button from "@/app/components/atoms/Button";
 
@@ -76,7 +76,7 @@ const SignupPage: React.FC = () => {
           onChange={(value) => setData({ email: data.email, name: data.name, familyName: value, money: data.money })}
         />
       </div>
-      {error && <p className="text-red-500 text-sm w-[200px] text-center border-2">{error}</p>}
+      {error && <p className="text-red-500 text-sm w-[200px] text-center">{error}</p>}
       <Button onClick={() => registerUser()} text="Registrer" loading={loading} />
     </div>
   );

@@ -17,6 +17,7 @@ const CodePage = () => {
     const code = params.get("code");
 
     if (code && counter === 0) {
+      setLoading(true);
       checkCode(code);
       counter++;
     }
