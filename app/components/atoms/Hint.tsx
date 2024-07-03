@@ -1,5 +1,5 @@
 "use client";
-import { Hint as HintType } from "@/types/hint";
+import { Hint as HintType } from "@prisma/client";
 import { FC } from "react";
 import CardFlip from "react-card-flip";
 

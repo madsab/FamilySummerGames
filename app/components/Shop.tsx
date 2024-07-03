@@ -10,7 +10,7 @@ import addPurchase, { PurchaseData } from "@/app/actions/addPurchase";
 import { toast } from "react-toastify";
 import Sum from "./atoms/Sum";
 import Hint from "./atoms/Hint";
-import { Hint as HintType } from "@/types/hint";
+import { Hint as HintType } from "@prisma/client";
 
 interface ShopProps {
   players: User[];
