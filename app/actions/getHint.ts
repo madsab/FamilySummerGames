@@ -1,20 +1,28 @@
 "use server"
 
-import { Hint } from "@/types/hint";
-import hints from "@/app/utils/hint.json";
+import { db } from "@/lib/db";
+import { Hint } from "@prisma/client";
 
 async function getHint(active?: boolean, game?:string): Promise<{
     hint?: Hint[];
     error?: string;
 }> {
     try{
-        let hint = hints as Hint[];
-        if (game) {
-            hint = hint.filter((h) => h.game === game);
+
+        if (active || game) {
+        const hint = await db.hint.findMany({
+            where: {
+                OR: [
+                    {active: active},
+                    {game: game}
+                ]
+            },
+
+        })
+            return { hint };
         }
-        if (active) {
-            hint = hint.filter((h) => h.active);
-        }
+
+        const hint = await db.hint.findMany();
         return { hint };
     }
     catch (error) {
