@@ -29,13 +29,14 @@ model User {
 }
 
 model Purchase {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
   type      String
   text      String
   from      String
   to        String
   price     Int
-  createdAt DateTime @default(now())
+  createdAt DateTime? @default(now())
+  extra     String[]  @default([])
 }
 
 model Account {
