@@ -11,6 +11,7 @@ export interface PurchaseData {
     from: string | null;
     createdAt?: Date | null;
     extra?: string[]
+    forFamily: string | null;
 }
 
 interface PurchaseResult {
@@ -21,7 +22,7 @@ interface PurchaseResult {
 async function addPurchase(formData: PurchaseData): Promise<PurchaseResult> {
 
     //Check if the form data is valid
-    if (!formData.text || !formData.to || !formData.price || !formData.from || !formData.type) {
+    if (!formData.text || !formData.to || !formData.price || !formData.from || !formData.type || !formData.forFamily) {
         console.log(formData)
         return { error: "Vennligst fyll ut alle feltene" };
     }
@@ -68,7 +69,8 @@ try {
             to: formData.to,
             from: formData.from,
             createdAt: new Date(),
-            extra: formData.extra
+            extra: formData.extra,
+            forFamily: formData.forFamily
         }
     })
     await db.user.update({

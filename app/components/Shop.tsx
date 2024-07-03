@@ -25,6 +25,7 @@ const Shop: FC<ShopProps> = ({ players, hint }) => {
     to: null,
     from: null,
     price: 0,
+    forFamily: null,
   };
   const [formData, setFormData] = useState<PurchaseData>(nullData);
   const [disabled, setDisabled] = useState(false);
@@ -107,7 +108,11 @@ const Shop: FC<ShopProps> = ({ players, hint }) => {
                     .filter((player) => player.name != user.name)
                     .map((player) => ({ title: player.name, group: player.familyName }))}
                   onChange={(value) => {
-                    setFormData((prevValue) => ({ ...prevValue, to: value + "@fsg.com" }));
+                    setFormData((prevValue) => ({
+                      ...prevValue,
+                      to: value + "@fsg.com",
+                      forFamily: players.find((player) => player.name === value)?.familyName || null,
+                    }));
                     setTimeout(() => setDisabled(false), 500);
                   }}
                 />
@@ -140,12 +145,14 @@ const Shop: FC<ShopProps> = ({ players, hint }) => {
         </ShopItem>
         <ShopItem
           onOpen={() => {
-            setFormData(() => ({
+            setFormData((prevValue) => ({
+              ...prevValue,
               type: "hint",
               text: hint?.game.toString() || "Ingen hint",
               to: user.email,
               from: user.email,
               price: 10000,
+              forFamily: "",
             }));
           }}
           noCloseOnConfirm
@@ -196,6 +203,7 @@ const Shop: FC<ShopProps> = ({ players, hint }) => {
                   text: "Kjøpt " + value,
                   price: 150000,
                   from: user.email,
+                  forFamily: players.find((player) => player.name === value)?.familyName || null,
                 }));
                 setTimeout(() => setDisabled(false), 500);
               }}

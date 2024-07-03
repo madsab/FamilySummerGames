@@ -34,6 +34,7 @@ model Purchase {
   text      String
   from      String
   to        String
+  forFamily String
   price     Int
   createdAt DateTime? @default(now())
   extra     String[]  @default([])
