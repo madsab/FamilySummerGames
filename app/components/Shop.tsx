@@ -112,6 +112,28 @@ const Shop: FC<ShopProps> = ({ players, hint }) => {
                   }}
                 />
               </fieldset>
+              {formData.text === "Bindet sammen med en annen" && (
+                <fieldset className="mb-[15px] flex items-center gap-5">
+                  <label className="text-violet11 w-[90px] text-right text-[15px]" htmlFor="username">
+                    Spiller:
+                  </label>
+                  <Select
+                    onTriggerClick={() => setDisabled(!disabled)}
+                    title="Spiller"
+                    placeholder="Velg Spiller"
+                    groups={players
+                      .map((player) => player.familyName)
+                      .filter((value, index, self) => self.indexOf(value) === index)}
+                    items={players
+                      .filter((player) => player.name != user.name)
+                      .map((player) => ({ title: player.name, group: player.familyName }))}
+                    onChange={(value) => {
+                      setFormData((prevValue) => ({ ...prevValue, extra: ["Bindes med " + value] }));
+                      setTimeout(() => setDisabled(false), 500);
+                    }}
+                  />
+                </fieldset>
+              )}
               <Sum sum={formData.price} />
             </div>
           </div>
