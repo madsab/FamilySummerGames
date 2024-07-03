@@ -8,7 +8,7 @@ import getHint from "@/app/actions/getHint";
 const ShopPage = async () => {
   const { balance, error } = await getUserBalance();
   const { data } = await getAllUsers();
-  const { hint } = await getHint();
+  const { hint } = await getHint(true);
   if (error) {
     return <div>{error}</div>;
   }
@@ -22,7 +22,7 @@ const ShopPage = async () => {
         <Icon icon={"fluent-emoji:coin"} className="size-8" />
         <p>:{balance ?? 0}</p>
       </div>
-      <Shop players={data || []} hint={hint} />
+      <Shop players={data || []} hint={hint?.[0]} />
     </div>
   );
 };

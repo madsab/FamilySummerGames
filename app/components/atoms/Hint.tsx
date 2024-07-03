@@ -1,11 +1,11 @@
 "use client";
-import { type Hint } from "@prisma/client";
+import { Hint as HintType } from "@/types/hint";
 import { FC } from "react";
 import CardFlip from "react-card-flip";
 
 interface HintProps {
   flipped?: boolean;
-  currentHint?: Hint;
+  currentHint?: HintType;
 }
 const Hint: FC<HintProps> = ({ flipped, currentHint }) => {
   return (
