@@ -9,7 +9,8 @@ export interface PurchaseData {
     price: number;
     to?: string | null;
     from: string | null;
-    createdAt?: Date;
+    createdAt?: Date | null;
+    extra?: string[]
 }
 
 interface PurchaseResult {
@@ -66,7 +67,8 @@ try {
             price: formData.price,
             to: formData.to,
             from: formData.from,
-            createdAt: new Date()
+            createdAt: new Date(),
+            extra: formData.extra
         }
     })
     await db.user.update({
