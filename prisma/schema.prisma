@@ -38,14 +38,6 @@ model Purchase {
   createdAt DateTime @default(now())
 }
 
-model Hint {
-  id        String   @id @default(uuid()) @map("_id")
-  localID   Int      @unique
-  game      String
-  hint      String
-  createdAt DateTime @default(now())
-}
-
 model Account {
   id                String  @id @default(auto()) @map("_id") @db.ObjectId
   userId            String  @db.ObjectId
