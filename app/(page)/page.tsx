@@ -9,6 +9,7 @@ import Podium from "../components/Podium";
 import getPodium from "../actions/getPodium";
 import LogOut from "../components/LogOut";
 import Rules from "../components/Rules";
+import Notifications from "../components/Notifications";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -31,6 +32,7 @@ export default async function Home() {
       <div className="pt-28 space-y-10 flex flex-col items-center">
         <p className="text-2xl">God dag, {session.user.name}</p>
         {first && second && third && <Podium first={first} second={second} third={third} />}
+        <Notifications />
         <Rules />
       </div>
       <LogOut />

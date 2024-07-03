@@ -1,5 +1,6 @@
 import getHint from "@/app/actions/getHint";
 import D_Hint from "@/app/components/D_Hint";
+import D_Notfication from "@/app/components/D_Notfication";
 import { authOptions } from "@/lib/config/auth/authOptions";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
@@ -17,9 +18,10 @@ const Dashboard = async () => {
   }
 
   return (
-    <div className="m-5 w-full flex flex-col items-center">
+    <div className="m-5 w-full flex flex-col items-center space-y-4">
       <p className="text-xl">Dashboard</p>
       <D_Hint hints={hint || []} />
+      <D_Notfication />
     </div>
   );
 };
