@@ -3,13 +3,14 @@ import { FC, useState } from "react";
 import ShopItem from "./organisms/ShopItem";
 import Select from "@/app/components/atoms/Select";
 import Ulemper from "@/app/utils/disadvantage.json";
-import { Hint as HintType, User } from "@prisma/client";
+import { User } from "@prisma/client";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useSession } from "next-auth/react";
 import addPurchase, { PurchaseData } from "@/app/actions/addPurchase";
 import { toast } from "react-toastify";
 import Sum from "./atoms/Sum";
 import Hint from "./atoms/Hint";
+import { Hint as HintType } from "@/types/hint";
 
 interface ShopProps {
   players: User[];
@@ -119,7 +120,7 @@ const Shop: FC<ShopProps> = ({ players, hint }) => {
           onOpen={() => {
             setFormData(() => ({
               type: "hint",
-              text: hint?.localID.toString() || "Ingen hint",
+              text: hint?.game.toString() || "Ingen hint",
               to: user.email,
               from: user.email,
               price: 10000,
