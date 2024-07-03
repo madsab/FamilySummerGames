@@ -1,5 +1,6 @@
 "use server"
 import { db } from "@/lib/db";
+import { revalidatePath } from "next/cache";
 
 async function setHint(game: string): Promise<{
     data?: string
@@ -23,6 +24,7 @@ async function setHint(game: string): Promise<{
             }
 
         })
+        revalidatePath("/shop")
 
         return { data: "Hint set"};
 
