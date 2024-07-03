@@ -1,11 +1,11 @@
 [
-    { "title": "Gå med slalomstøvler", "price": 30000 },
-    { "title": "Bind for det dominate øyet", "price": 20000 },
-    { "title": "Gå med motorsykkelhjelm", "price": 20000 },
-    { "title": "Gå med vernebukse", "price": 10000 },
-    { "title": "Gå med vernestøvler, str 46", "price": 10000 },
-    { "title": "Bindet sammen med en annen", "price": 10000 },
-    { "title": "Ha på med Bessy", "price": 100000 },
-    { "title": "Gå med grytekluter", "price": 20000 }
+    { "title": "Gå med slalomstøvler", "price": 30000, "amount": 2 },
+    { "title": "Bind for det dominante øyet", "price": 20000, "amount": 5 },
+    { "title": "Gå med motorsykkelhjelm", "price": 20000, "amount": 2 },
+    { "title": "Gå med vernebukse", "price": 10000 , "amount": 1},
+    { "title": "Gå med vernestøvler, str 46", "price": 10000, "amount": 1 },
+    { "title": "Bindet sammen med en annen", "price": 10000, "amount":  100 },
+    { "title": "Ha på Bessy", "price": 100000, "amount": 1 },
+    { "title": "Gå med grytekluter", "price": 20000, "amount": 1 }
 
 ]
