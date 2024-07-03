@@ -133,7 +133,7 @@ const Shop: FC<ShopProps> = ({ players, hint }) => {
                       .filter((player) => player.name != user.name)
                       .map((player) => ({ title: player.name, group: player.familyName }))}
                     onChange={(value) => {
-                      setFormData((prevValue) => ({ ...prevValue, extra: ["Bindes med " + value] }));
+                      setFormData((prevValue) => ({ ...prevValue, extra: ["bindes med " + value] }));
                       setTimeout(() => setDisabled(false), 500);
                     }}
                   />
@@ -148,11 +148,11 @@ const Shop: FC<ShopProps> = ({ players, hint }) => {
             setFormData((prevValue) => ({
               ...prevValue,
               type: "hint",
-              text: hint?.game.toString() || "Ingen hint",
+              text: "Kjøpt hint: " + hint?.game.toString() || "Ingen hint",
               to: user.email,
               from: user.email,
               price: 10000,
-              forFamily: "",
+              forFamily: "None",
             }));
           }}
           noCloseOnConfirm
@@ -198,9 +198,9 @@ const Shop: FC<ShopProps> = ({ players, hint }) => {
               onChange={(value) => {
                 setFormData((prevValue) => ({
                   ...prevValue,
-                  to: value + "@fsg.com",
+                  to: user.email,
                   type: "Kjøpe spiller",
-                  text: "Kjøpt " + value,
+                  text: "Har kjøpt spiller " + value,
                   price: 150000,
                   from: user.email,
                   forFamily: players.find((player) => player.name === value)?.familyName || null,
