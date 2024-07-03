@@ -61,6 +61,14 @@ model Account {
   @@unique([provider, providerAccountId])
 }
 
+model Hint {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  game      String    @unique
+  hint      String
+  active    Boolean
+  createdAt DateTime? @default(now())
+}
+
 model Session {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   sessionToken String   @unique
