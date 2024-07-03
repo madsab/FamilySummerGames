@@ -12,6 +12,7 @@ export interface PurchaseData {
     createdAt?: Date | null;
     extra?: string[]
     forFamily: string | null;
+    area?: "feet" | "hands" | "head" | "torso" | "legs" | "arms" | "back" | "neck" | "face" | "other" | "together";
 }
 
 interface PurchaseResult {
@@ -55,11 +56,34 @@ try {
         where: {email: formData.from},
     })
 
+
     if (!purchasingUser) {
         return { error: "Du er ikke logget inn" };
     }
     if (purchasingUser.money - formData.price < 0) {
         return { error: "Du har ikke nok penger!" };
+    }
+
+    //Check if victim already has a disadvantage of the same type
+    if (formData.type === "ulempe" && formData.area){
+        const victim = await db.user.findUnique({
+            where: {email: formData.to},
+        })
+
+        if(!victim){
+            return { error: "Brukeren du prøver å gi ulempen til eksisterer ikke" };
+        }
+        if (victim.disadventages.includes(formData.area)){
+            return { error: "Denne personen kan ikke få denne ulempen" };
+        }
+        await db.user.update({
+            where: {email: formData.to},
+            data: {
+                disadventages: {
+                    push: formData.area
+                }
+            }
+        })
     }
     const purchaseData: PurchaseData = await db.purchase.create({
         data: {

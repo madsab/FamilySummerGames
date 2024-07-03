@@ -2,7 +2,6 @@
 import { FC, useState } from "react";
 import ShopItem from "./organisms/ShopItem";
 import Select from "@/app/components/atoms/Select";
-import Ulemper from "@/app/utils/disadvantage.json";
 import { User } from "@prisma/client";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useSession } from "next-auth/react";
@@ -89,7 +88,8 @@ const Shop: FC<ShopProps> = ({ players, hint, disadvantage }) => {
                       text: value,
                       type: "ulempe",
                       from: user.email,
-                      price: Ulemper.find((item) => item.title === value)?.price || 0,
+                      price: disadvantage.find((item) => item.title === value)?.price || 0,
+                      area: disadvantage.find((item) => item.title === value)?.area,
                     }));
                     setTimeout(() => setDisabled(false), 500);
                   }}
@@ -208,6 +208,7 @@ const Shop: FC<ShopProps> = ({ players, hint, disadvantage }) => {
                   price: 150000,
                   from: user.email,
                   forFamily: players.find((player) => player.name === value)?.familyName || null,
+                  area: "other",
                 }));
                 setTimeout(() => setDisabled(false), 500);
               }}
