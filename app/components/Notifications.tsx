@@ -1,9 +1,10 @@
 "use server";
 import { checkUser } from "@/lib/checkUser";
-import { List, ListItem } from "@mui/material";
+import { List, ListItem, ListItemIcon } from "@mui/material";
 import React from "react";
 import getNotifications from "../actions/getNotifications";
 import { redirect } from "next/navigation";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 const Notifications = async () => {
   const { user } = await checkUser();
@@ -11,13 +12,13 @@ const Notifications = async () => {
     redirect("/signin");
   }
   const { notifications } = await getNotifications(user);
-  console.log(notifications);
+
   return (
-    <List>
+    <List className="space-y-3">
       {notifications?.map((n) => (
-        <ListItem key={n.id}>
-          <h3>{n.type}</h3>
-          <p>{n.price}</p>
+        <ListItem key={n.id} className="text-md p-4 border border-red-900 rounded-md bg-red-400 text-red-800">
+          <Icon icon={"mingcute:notification-line"} className="size-5" />
+          Noen har {n.type === "ulempe" ? "kjøpt en ulempe til " : "kjøpt en spiller fra"} en i familien.
         </ListItem>
       ))}
     </List>
