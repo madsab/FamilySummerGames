@@ -9,15 +9,15 @@ import { toast } from "react-toastify";
 
 const CodePage = () => {
   const [code, setCode] = React.useState("");
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
   const params = useSearchParams();
   let counter = 0;
 
   useEffect(() => {
     const code = params.get("code");
+    setLoading(false);
 
     if (code && counter === 0) {
-      setLoading(true);
       checkCode(code);
       counter++;
     }
@@ -32,7 +32,6 @@ const CodePage = () => {
         setLoading(false);
         toast.error(error);
       } else {
-        setLoading(false);
         setCode("");
         toast.success(
           <div className="flex items-center space-x-1">
@@ -40,6 +39,7 @@ const CodePage = () => {
             <Icon icon={"fluent-emoji:coin"} /> {amount} mynter!
           </div>
         );
+        setLoading(false);
       }
     } else {
       if (amount < 0) {
