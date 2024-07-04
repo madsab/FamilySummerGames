@@ -1,7 +1,7 @@
 [
     { "title": "Gå med slalomstøvler", "price": 120000, "area": "feet", "amount": 2 },
     { "title": "Bind for det dominante øyet", "price": 150000, "area": "eyes", "amount": 5 },
-    { "title": "Gå med motorsykkelhjelm", "price": 180000, "area": "head", "amount": 2 },
+    { "title": "Gå med Hjelmar, str M", "price": 180000, "area": "head", "amount": 1 },
     { "title": "Gå med vernebukse", "price": 80000 , "area": "legs", "amount": 1},
     { "title": "Gå med vernestøvler, str 46", "price": 100000, "area":"feet", "amount": 1 },
     { "title": "Bindet sammen med en annen", "price": 250000, "area": "together", "amount":  100 },
