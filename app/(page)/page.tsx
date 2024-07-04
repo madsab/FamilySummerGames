@@ -10,14 +10,19 @@ import getPodium from "../actions/getPodium";
 import LogOut from "../components/LogOut";
 import Rules from "../components/Rules";
 import Notifications from "../components/Notifications";
+import currencyFormat from "../utils/currencyFormat";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
-  const { balance } = await getUserBalance();
+  let { balance } = await getUserBalance();
   const { first, second, third } = await getPodium();
 
   if (!session?.user) {
     redirect("/signin");
+  }
+
+  if (!balance) {
+    balance = 0;
   }
 
   return (
@@ -26,7 +31,7 @@ export default async function Home() {
         <Image src={Logo} alt="FSG Logo" width={50} height={50} />
         <p className="text-xl flex-1 flex justify-end items-center">
           <Icon icon={"fluent-emoji:coin"} />
-          {balance}
+          {currencyFormat(balance)}
         </p>
       </div>
       <div className="h-24"></div>

@@ -3,6 +3,7 @@ import * as SelectR from "@radix-ui/react-select";
 import classnames from "classnames";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import cn from "classnames";
+import currencyFormat from "@/app/utils/currencyFormat";
 
 interface SelectProps {
   className?: string;
@@ -58,7 +59,7 @@ const Select: FC<SelectProps> = (props) => (
                   ? props.items
                       .filter((item) => item.group === group)
                       .map((item) => (
-                        <SelectItem key={item.title} value={item.title} price={item.price}>
+                        <SelectItem key={item.title} value={item.title} price={currencyFormat(item.price || 0)}>
                           <span className="flex">{item.title}</span>
                         </SelectItem>
                       ))
@@ -84,7 +85,7 @@ const Select: FC<SelectProps> = (props) => (
                     </SelectItem>
                   ))
                 : props.items.map((item) => (
-                    <SelectItem key={item.title} value={item.title} price={item.price}>
+                    <SelectItem key={item.title} value={item.title} price={currencyFormat(item.price)}>
                       <span className="flex">{item.title}</span>
                     </SelectItem>
                   ))}
@@ -103,7 +104,7 @@ type SelectItemProps = {
   className?: string;
   children: React.ReactNode;
   value: string;
-  price?: number;
+  price?: number | string;
 };
 
 const SelectItem = React.forwardRef(

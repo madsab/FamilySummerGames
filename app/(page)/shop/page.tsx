@@ -5,6 +5,7 @@ import getUserBalance from "@/app/actions/getUserBalance";
 import getAllUsers from "@/app/actions/getAllUsers";
 import getHint from "@/app/actions/getHint";
 import getDisadvantages from "@/app/actions/getDisadvantages";
+import currencyFormat from "@/app/utils/currencyFormat";
 
 const ShopPage = async () => {
   const { balance, error } = await getUserBalance();
@@ -22,7 +23,7 @@ const ShopPage = async () => {
       </div>
       <div className="mt-3 flex justify-center items-center">
         <Icon icon={"fluent-emoji:coin"} className="size-8" />
-        <p>:{balance ?? 0}</p>
+        <p>:{currencyFormat(balance ?? 0)}</p>
       </div>
       <Shop players={data || []} hint={hint?.[0]} disadvantage={dis || []} />
     </div>
