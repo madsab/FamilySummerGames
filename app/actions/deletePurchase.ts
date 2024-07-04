@@ -7,6 +7,11 @@ async function deletePurchase(id?: string): Promise<boolean> {
     try {
         if(!id) {
             await db.purchase.deleteMany();
+            await db.user.updateMany({
+                data: {
+                    disadventages: [],
+                }
+            })
         } else {
             await db.purchase.delete({
                 where: {
