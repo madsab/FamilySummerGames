@@ -62,7 +62,7 @@ const Shop: FC<ShopProps> = ({ players, hint, disadvantage }) => {
   };
   return (
     <div className="w-full h-5/6">
-      <div className="flex flex-wrap h-full p-4 gap-3">
+      <div className="h-full p-4 space-y-3">
         <ShopItem
           disabled={disabled}
           onCancel={() => setFormData(nullData)}
@@ -70,6 +70,7 @@ const Shop: FC<ShopProps> = ({ players, hint, disadvantage }) => {
           title="Ulemper"
           icon="tabler:alert-triangle"
           description="Kjøp ulemper andre spillere må ha under neste aktivitet"
+          className="mr-3"
         >
           <div>
             <div>
