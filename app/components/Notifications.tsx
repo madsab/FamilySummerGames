@@ -16,8 +16,11 @@ const Notifications = async () => {
   return (
     <List className="space-y-3">
       {notifications?.map((n) => (
-        <ListItem key={n.id} className="text-md p-4 border border-red-900 rounded-md bg-red-400 text-red-800">
-          <Icon icon={"mingcute:notification-line"} className="size-5" />
+        <ListItem
+          key={n.id}
+          className="text-md p-4 border border-red-900 rounded-md bg-red-400 text-red-800 opacity-0 first:opacity-100 duration-1000 delay-300 ease-in-out"
+        >
+          <Icon icon={"mingcute:notification-line"} className="size-5 animate-pulse" />
           Noen har {n.type === "ulempe" ? "kjøpt en ulempe til " : "kjøpt en spiller fra"} en i familien.
         </ListItem>
       ))}

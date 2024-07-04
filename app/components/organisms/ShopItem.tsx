@@ -1,17 +1,19 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import * as Dialog from "@radix-ui/react-dialog";
 import React, { FC } from "react";
+import cn from "classnames";
 
 interface ShopItemProps {
   title: string;
   icon?: string;
   description: string;
   children?: React.ReactNode;
-  onConfirm: () => void;
-  onCancel: () => void;
+  onConfirm?: () => void;
+  onCancel?: () => void;
   disabled?: boolean;
   noCloseOnConfirm?: boolean;
   onOpen?: () => void;
+  className?: string;
 }
 const ShopItem: FC<ShopItemProps> = ({
   title,
@@ -23,11 +25,17 @@ const ShopItem: FC<ShopItemProps> = ({
   onOpen,
   disabled,
   noCloseOnConfirm,
+  className,
 }) => {
   return (
     <Dialog.Root onOpenChange={onOpen}>
       <Dialog.Trigger asChild>
-        <button className=" border-2 w-[48%] h-1/3 inline-flex items-center justify-center bg-gradient-to-br from-slate-500 to-slate-800 rounded-[4px] gap-1 px-[15px] font-medium leading-none focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none">
+        <button
+          className={cn(
+            "border-2 w-[48%] h-1/3 inline-flex items-center justify-center bg-gradient-to-br from-slate-500 to-slate-800 rounded-[4px] gap-1 px-[15px] font-medium leading-none focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none",
+            className
+          )}
+        >
           {icon && <Icon icon={icon} />}
           {title}
         </button>

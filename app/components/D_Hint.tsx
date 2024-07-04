@@ -23,25 +23,27 @@ const D_Hint: FC<D_HintProps> = ({ hints }) => {
   };
 
   return (
-    <div className="border-2 p-4 rounded-md w-2/3 space-y-4 ">
-      <p>Nåværende hint i butikken</p>
-      <div className="flex items-center space-x-3">
-        <Select
-          title="Hint"
-          defaultValue={hints.filter((hint) => hint.active === true)[0].game}
-          items={hints?.map((hint) => hint.game)}
-          onChange={(value) => setActiveHint(value)}
-        />
-        {activeHint && (
-          <Button
-            className="text-sm"
-            text="Confirm"
-            onClick={() => {
-              updateHint();
-              setActiveHint("");
-            }}
+    <div className="border-2 p-4 rounded-md w-4/5 space-y-4 flex flex-col items-end ">
+      <div className="w-full">
+        <p>Nåværende hint i butikken</p>
+        <div className="flex items-center space-x-3">
+          <Select
+            title="Hint"
+            defaultValue={hints.filter((hint) => hint.active === true)[0].game}
+            items={hints?.map((hint) => hint.game)}
+            onChange={(value) => setActiveHint(value)}
           />
-        )}
+          {activeHint && (
+            <Button
+              className="text-sm"
+              text="Confirm"
+              onClick={() => {
+                updateHint();
+                setActiveHint("");
+              }}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
