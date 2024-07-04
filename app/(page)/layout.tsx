@@ -25,6 +25,10 @@ export default async function RootLayout({
   const session = await getServerSession(authOptions);
   const user = session?.user;
 
+  if (!user) {
+    redirect("/signin");
+  }
+
   return (
     <html lang="en">
       <body className={cn(inter.className, "w-full flex flex-col items-center h-screen")}>
