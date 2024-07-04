@@ -1,5 +1,6 @@
 import getHint from "@/app/actions/getHint";
 import getNotifications from "@/app/actions/getNotifications";
+import D_Actions from "@/app/components/D_Actions";
 import D_Hint from "@/app/components/D_Hint";
 import D_Notfication from "@/app/components/D_Notfication";
 import { authOptions } from "@/lib/config/auth/authOptions";
@@ -24,6 +25,7 @@ const Dashboard = async () => {
       <p className="text-xl">Dashboard</p>
       <D_Hint hints={hint || []} />
       <D_Notfication notifications={notifications || []} />
+      <D_Actions />
     </div>
   );
 };
