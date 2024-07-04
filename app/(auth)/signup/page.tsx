@@ -45,7 +45,7 @@ const SignupPage: React.FC = () => {
       <h2 className="text-4xl font-bold mb-4">Registrer deg</h2>
       <div>
         <label htmlFor="name" className="block text-lg font-medium ">
-          Ditt fornavn:
+          Fornavn:
         </label>
         <input
           type="text"
