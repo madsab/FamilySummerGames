@@ -2,6 +2,7 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import * as Dialog from "@radix-ui/react-dialog";
 import React, { FC } from "react";
 import cn from "classnames";
+import Button from "../atoms/Button";
 
 interface ShopItemProps {
   title: string;
@@ -14,7 +15,7 @@ interface ShopItemProps {
   noCloseOnConfirm?: boolean;
   onOpen?: () => void;
   className?: string;
-  confirmTitle?: string;
+  confirmTitle: string;
 }
 const ShopItem: FC<ShopItemProps> = ({
   title,
@@ -64,16 +65,16 @@ const ShopItem: FC<ShopItemProps> = ({
                 onClick={onConfirm}
                 className="bg-green-600 text-green11 hover:bg-green5 focus:shadow-green7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none focus:shadow-[0_0_0_2px] focus:outline-none"
               >
-                {props.confirmTitle ? props.confirmTitle : "Kjøp"}
+                {props.confirmTitle}
               </button>
             ) : (
               <Dialog.Close asChild disabled={disabled}>
-                <button
-                  onClick={onConfirm}
+                <Button
+                  onClick={() => onConfirm}
                   className="bg-green-600 text-green11 hover:bg-green5 focus:shadow-green7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none focus:shadow-[0_0_0_2px] focus:outline-none"
                 >
-                  {props.confirmTitle ? props.confirmTitle : "Kjøp"}
-                </button>
+                  {props.confirmTitle}
+                </Button>
               </Dialog.Close>
             )}
           </div>
