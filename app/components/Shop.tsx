@@ -11,6 +11,7 @@ import Sum from "./atoms/Sum";
 import Hint from "./atoms/Hint";
 import { Hint as HintType } from "@prisma/client";
 import { Disadvantage } from "@/types/disadvantage";
+import { CircularProgress } from "@mui/material";
 
 interface ShopProps {
   players: User[];
@@ -31,6 +32,7 @@ const Shop: FC<ShopProps> = ({ players, hint, disadvantage }) => {
   const [formData, setFormData] = useState<PurchaseData>(nullData);
   const [disabled, setDisabled] = useState(false);
   const [flipped, setFlipped] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   if (!session.data?.user) {
     return <div>No user</div>;
@@ -38,8 +40,9 @@ const Shop: FC<ShopProps> = ({ players, hint, disadvantage }) => {
   const user = session.data.user;
 
   const purchase = async () => {
+    setLoading(true);
     const { data, error } = await addPurchase(formData);
-
+    setLoading(false);
     if (error) {
       toast.error(error);
       if (error.includes("Du har allerede kjøpt dette hintet")) {
@@ -62,6 +65,11 @@ const Shop: FC<ShopProps> = ({ players, hint, disadvantage }) => {
   };
   return (
     <div className="w-full h-5/6">
+      {loading && (
+        <div className="absolute top-0 left-0 w-full h-full bg-opacity-70 bg-black flex justify-center items-center">
+          <CircularProgress color="inherit" />
+        </div>
+      )}
       <div className="h-full p-4 space-y-3">
         <ShopItem
           confirmTitle="Kjøp"
