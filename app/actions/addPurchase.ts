@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 
 export interface PurchaseData {
-    id: string;
+    id?: string;
     type: string | null;
     text: string | null;
     price: number;

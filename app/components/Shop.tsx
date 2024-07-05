@@ -24,7 +24,7 @@ const Shop: FC<ShopProps> = ({ players, hint, disadvantage }) => {
     type: null,
     text: null,
     to: null,
-    from: null,
+    from: "",
     price: 0,
     forFamily: null,
   };
