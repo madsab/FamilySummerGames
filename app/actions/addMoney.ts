@@ -5,18 +5,18 @@ import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
 
 
-async function addMoney(amount:number): Promise<{
+async function addMoney(amount:number, userEmail?:string): Promise<{
     data?: number;
     error?: string;
 }> {
     const session = await getServerSession();
     if (!session?.user) {
-        return { error: "You must be signed in to call this API" };
+        return { error: "You must be signed in to get money" };
     }
 
     try {
         const updatedUser = await db.user.update({
-            where: {email: session.user?.email},
+            where: {email: userEmail ? userEmail : session.user?.email},
             data: {
                 money: {
                     increment: amount
