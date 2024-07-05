@@ -4,11 +4,12 @@ import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 
 export interface PurchaseData {
+    id: string;
     type: string | null;
     text: string | null;
     price: number;
     to?: string | null;
-    from: string | null;
+    from: string
     createdAt?: Date | null;
     extra?: string[]
     forFamily: string | null;
