@@ -14,6 +14,7 @@ interface ShopItemProps {
   noCloseOnConfirm?: boolean;
   onOpen?: () => void;
   className?: string;
+  confirmTitle?: string;
 }
 const ShopItem: FC<ShopItemProps> = ({
   title,
@@ -26,6 +27,7 @@ const ShopItem: FC<ShopItemProps> = ({
   disabled,
   noCloseOnConfirm,
   className,
+  ...props
 }) => {
   return (
     <Dialog.Root onOpenChange={onOpen}>
@@ -62,7 +64,7 @@ const ShopItem: FC<ShopItemProps> = ({
                 onClick={onConfirm}
                 className="bg-green-600 text-green11 hover:bg-green5 focus:shadow-green7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none focus:shadow-[0_0_0_2px] focus:outline-none"
               >
-                Kjøp
+                {props.confirmTitle ? props.confirmTitle : "Kjøp"}
               </button>
             ) : (
               <Dialog.Close asChild disabled={disabled}>
@@ -70,7 +72,7 @@ const ShopItem: FC<ShopItemProps> = ({
                   onClick={onConfirm}
                   className="bg-green-600 text-green11 hover:bg-green5 focus:shadow-green7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none focus:shadow-[0_0_0_2px] focus:outline-none"
                 >
-                  Kjøp
+                  {props.confirmTitle ? props.confirmTitle : "Kjøp"}
                 </button>
               </Dialog.Close>
             )}
