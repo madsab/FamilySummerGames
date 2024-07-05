@@ -64,6 +64,7 @@ const Shop: FC<ShopProps> = ({ players, hint, disadvantage }) => {
     <div className="w-full h-5/6">
       <div className="h-full p-4 space-y-3">
         <ShopItem
+          confirmTitle="Kjøp"
           disabled={disabled}
           onCancel={() => setFormData(nullData)}
           onConfirm={() => purchase()}
@@ -147,6 +148,7 @@ const Shop: FC<ShopProps> = ({ players, hint, disadvantage }) => {
           </div>
         </ShopItem>
         <ShopItem
+          confirmTitle="Kjøp"
           onOpen={() => {
             setFormData((prevValue) => ({
               ...prevValue,
@@ -178,6 +180,7 @@ const Shop: FC<ShopProps> = ({ players, hint, disadvantage }) => {
           </div>
         </ShopItem>
         <ShopItem
+          confirmTitle="Kjøp"
           disabled={disabled}
           onCancel={() => setFormData(nullData)}
           onConfirm={() => purchase()}
