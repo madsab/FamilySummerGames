@@ -69,12 +69,12 @@ const ShopItem: FC<ShopItemProps> = ({
               </button>
             ) : (
               <Dialog.Close asChild disabled={disabled}>
-                <Button
-                  onClick={() => onConfirm}
+                <button
+                  onClick={onConfirm}
                   className="bg-green-600 text-green11 hover:bg-green5 focus:shadow-green7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none focus:shadow-[0_0_0_2px] focus:outline-none"
                 >
                   {props.confirmTitle}
-                </Button>
+                </button>
               </Dialog.Close>
             )}
           </div>

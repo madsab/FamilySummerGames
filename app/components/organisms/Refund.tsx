@@ -19,7 +19,6 @@ const Refund = () => {
   const [allPurchases, setAllPurchases] = useState<PurchaseData[]>();
 
   const handleClick = async () => {
-    console.log(refundData);
     if (!refundData?.userEmail || !refundData?.purchase) {
       toast.error("Please select a user and a purchase");
       return;
@@ -80,7 +79,8 @@ const Refund = () => {
             className="overflow-hidden"
             items={
               allPurchases?.map(
-                (purchase) => `'${purchase.text}' -> ${purchase.to} (${purchase.createdAt?.toLocaleDateString()})`
+                (purchase) =>
+                  `'${purchase.text}' -> ${purchase.to?.split("@")[0]} (${purchase.createdAt?.toLocaleDateString()})`
               ) || []
             }
             onChange={(value) => {
@@ -88,7 +88,9 @@ const Refund = () => {
                 ...prevValue,
                 purchase: allPurchases?.find(
                   (purchase) =>
-                    `'${purchase.text}' -> ${purchase.to} (${purchase.createdAt?.toLocaleDateString()})` === value
+                    `'${purchase.text}' -> ${
+                      purchase.to?.split("@")[0]
+                    } (${purchase.createdAt?.toLocaleDateString()})` === value
                 ),
               }));
             }}
