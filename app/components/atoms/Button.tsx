@@ -4,12 +4,12 @@ import cn from "classnames";
 import { CircularProgress } from "@mui/material";
 
 interface ButtonProps {
-  text: string;
   className?: string;
   onClick: () => void;
   loading?: boolean;
+  children?: React.ReactNode;
 }
-const Button: FC<ButtonProps> = ({ text, onClick, className, loading }) => {
+const Button: FC<ButtonProps> = ({ onClick, className, loading, children }) => {
   return (
     <button
       onClick={() => {
@@ -22,7 +22,7 @@ const Button: FC<ButtonProps> = ({ text, onClick, className, loading }) => {
         className
       )}
     >
-      {loading ? <CircularProgress color="inherit" size={25} /> : text}
+      {loading ? <CircularProgress color="inherit" size={25} /> : children}
     </button>
   );
 };
