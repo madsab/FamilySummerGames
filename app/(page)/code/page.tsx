@@ -63,7 +63,9 @@ const CodePage = () => {
         className="mt-1 size-12 p-2 block w-full border text-black border-gray-300 rounded-md"
         required
       />
-      <Button onClick={() => checkCode()} loading={loading} text="Send inn" />
+      <Button onClick={() => checkCode()} loading={loading}>
+        Send inn
+      </Button>
     </div>
   );
 };

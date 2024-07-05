@@ -36,12 +36,13 @@ const D_Hint: FC<D_HintProps> = ({ hints }) => {
           {activeHint && (
             <Button
               className="text-sm"
-              text="Confirm"
               onClick={() => {
                 updateHint();
                 setActiveHint("");
               }}
-            />
+            >
+              Confirm
+            </Button>
           )}
         </div>
       </div>

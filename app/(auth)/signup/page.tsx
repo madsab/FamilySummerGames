@@ -77,7 +77,9 @@ const SignupPage: React.FC = () => {
         />
       </div>
       {error && <p className="text-red-500 text-sm w-[200px] text-center">{error}</p>}
-      <Button onClick={() => registerUser()} text="Registrer" loading={loading} />
+      <Button onClick={() => registerUser()} loading={loading}>
+        Registrer
+      </Button>
     </div>
   );
 };
