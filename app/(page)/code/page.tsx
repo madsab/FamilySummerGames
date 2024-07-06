@@ -16,7 +16,7 @@ const CodePage = () => {
 
   useEffect(() => {
     const code = params.get("code");
-    // setLoading(false);
+    setLoading(false);
 
     if (code && counter === 0) {
       checkCode(code);
