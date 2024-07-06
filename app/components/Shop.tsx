@@ -74,7 +74,9 @@ const Shop: FC<ShopProps> = ({ players, hint, disadvantage }) => {
         <ShopItem
           confirmTitle="Kjøp"
           disabled={disabled}
-          onCancel={() => setFormData(nullData)}
+          onCancel={() => {
+            setFormData(nullData), console.log("Canceling price");
+          }}
           onConfirm={() => purchase()}
           title="Ulemper"
           icon="tabler:alert-triangle"
@@ -164,13 +166,15 @@ const Shop: FC<ShopProps> = ({ players, hint, disadvantage }) => {
               text: "Kjøpt hint: " + hint?.game.toString() || "Ingen hint",
               to: user.email,
               from: user.email,
-              price: 10000,
+              price: 50000,
               forFamily: "None",
             }));
           }}
           noCloseOnConfirm
           disabled={disabled}
-          onCancel={() => setFormData(nullData)}
+          onCancel={() => {
+            setTimeout(() => setFormData(nullData), 500);
+          }}
           onConfirm={() => {
             purchase();
           }}
@@ -183,7 +187,7 @@ const Shop: FC<ShopProps> = ({ players, hint, disadvantage }) => {
               <fieldset className="mb-[15px] flex items-center gap-5 justify-center">
                 <Hint flipped={flipped} currentHint={hint} />
               </fieldset>
-              <Sum sum={10000} />
+              <Sum sum={50000} />
             </div>
           </div>
         </ShopItem>
@@ -217,7 +221,7 @@ const Shop: FC<ShopProps> = ({ players, hint, disadvantage }) => {
                   to: user.email,
                   type: "Kjøpe spiller",
                   text: "Har kjøpt spiller " + value,
-                  price: 150000,
+                  price: 200000,
                   from: user.email,
                   forFamily: players.find((player) => player.name === value)?.familyName || null,
                   area: "other",
@@ -226,7 +230,7 @@ const Shop: FC<ShopProps> = ({ players, hint, disadvantage }) => {
               }}
             />
           </fieldset>
-          <Sum sum={formData.price} />
+          <Sum sum={200000} />
         </ShopItem>
       </div>
     </div>
