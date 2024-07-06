@@ -3,6 +3,7 @@ import addMoney from "@/app/actions/addMoney";
 import checkValidCode from "@/app/actions/checkValidCode";
 import Button from "@/app/components/atoms/Button";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { CircularProgress } from "@mui/material";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect } from "react";
 import { toast } from "react-toastify";
@@ -15,7 +16,7 @@ const CodePage = () => {
 
   useEffect(() => {
     const code = params.get("code");
-    setLoading(false);
+    // setLoading(false);
 
     if (code && counter === 0) {
       checkCode(code);
@@ -53,11 +54,17 @@ const CodePage = () => {
 
   return (
     <div className="h-4/5 flex flex-col justify-center items-center space-y-4">
+      {loading && (
+        <div className=" absolute w-full h-full bg-black bg-opacity-70 flex justify-center items-center  ">
+          <CircularProgress color="inherit" size={60} />
+        </div>
+      )}
       <p className="text-xl">Legg inn kode:</p>
       <input
         type="text"
         id="name"
         name="name"
+        disabled={loading}
         value={code}
         onChange={(e) => setCode(e.target.value)}
         className="mt-1 size-12 p-2 block w-full border text-black border-gray-300 rounded-md"
