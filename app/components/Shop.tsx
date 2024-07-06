@@ -75,7 +75,7 @@ const Shop: FC<ShopProps> = ({ players, hint, disadvantage }) => {
           confirmTitle="Kjøp"
           disabled={disabled}
           onCancel={() => {
-            setFormData(nullData), console.log("Canceling price");
+            setFormData(nullData);
           }}
           onConfirm={() => purchase()}
           title="Ulemper"
