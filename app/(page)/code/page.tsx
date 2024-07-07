@@ -2,6 +2,7 @@
 import addMoney from "@/app/actions/addMoney";
 import checkValidCode from "@/app/actions/checkValidCode";
 import Button from "@/app/components/atoms/Button";
+import EndreLoading from "@/app/components/atoms/EndreLoading";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { CircularProgress } from "@mui/material";
 import { useSearchParams } from "next/navigation";
@@ -56,7 +57,7 @@ const CodePage = () => {
     <div className="h-4/5 flex flex-col justify-center items-center space-y-4">
       {loading && (
         <div className=" absolute w-full h-full bg-black bg-opacity-70 flex justify-center items-center  ">
-          <CircularProgress color="inherit" size={60} />
+          <EndreLoading />
         </div>
       )}
       <p className="text-xl">Legg inn kode:</p>
