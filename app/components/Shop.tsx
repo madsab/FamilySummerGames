@@ -229,11 +229,11 @@ const Shop: FC<ShopProps> = ({ players, hint, disadvantage }) => {
                 setTimeout(() => setDisabled(false), 500);
               }}
             />
+            {user.name == "Endre" && <p>Ikke gjør noe dumt nå Endre</p>}
           </fieldset>
-          <Sum sum={200000} />
+          <Sum sum={100000} />
         </ShopItem>
       </div>
-      {user.name == "Endre" && <p>Ikke gjør noe dumt nå Endre</p>}
     </div>
   );
 };
