@@ -233,6 +233,7 @@ const Shop: FC<ShopProps> = ({ players, hint, disadvantage }) => {
           <Sum sum={200000} />
         </ShopItem>
       </div>
+      {user.name == "Endre" && <p>Ikke gjør noe dumt nå Endre</p>}
     </div>
   );
 };
