@@ -221,7 +221,7 @@ const Shop: FC<ShopProps> = ({ players, hint, disadvantage }) => {
                   to: user.email,
                   type: "Kjøpe spiller",
                   text: "Har kjøpt spiller " + value,
-                  price: 200000,
+                  price: 100000,
                   from: user.email,
                   forFamily: players.find((player) => player.name === value)?.familyName || null,
                   area: "other",
